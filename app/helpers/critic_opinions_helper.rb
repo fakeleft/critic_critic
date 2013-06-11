@@ -1,0 +1,2 @@
+module CriticOpinionsHelper
+end

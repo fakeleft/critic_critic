@@ -1,0 +1,31 @@
+<h1>Listing critic_opinions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Like</th>
+      <th>User</th>
+      <th>Critic</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @critic_opinions.each do |critic_opinion| %>
+      <tr>
+        <td><%= critic_opinion.like %></td>
+        <td><%= critic_opinion.user_id %></td>
+        <td><%= critic_opinion.critic_id %></td>
+        <td><%= link_to 'Show', critic_opinion %></td>
+        <td><%= link_to 'Edit', edit_critic_opinion_path(critic_opinion) %></td>
+        <td><%= link_to 'Destroy', critic_opinion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Critic opinion', new_critic_opinion_path %>

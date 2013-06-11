@@ -1,4 +1,14 @@
 CriticCritic::Application.routes.draw do
+  resources :critic_opinions
+
+  resources :user_opinions
+
+  resources :critics
+
+  resources :users
+
+  resources :movies
+
   get "static_pages/movies"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
