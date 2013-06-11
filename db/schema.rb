@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130611004337) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "critic_opinions", force: true do |t|
     t.boolean  "like"
     t.integer  "user_id"
