@@ -6,7 +6,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: critic
+  database: critic_dev
   pool: 5
   username: dev
   password:
