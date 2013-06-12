@@ -8,3 +8,5 @@ Create a postgres dev user: createuser dev
 
 Create a postgres dev database: createdb -O dev critic_dev
 
+[Tutorial to install PostgeSQL](http://createdbypete.com/articles/ruby-on-rails-development-with-mac-os-x-mountain-lion/)
+
