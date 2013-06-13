@@ -72,9 +72,9 @@ end
 test = ApiRT.new
 # ap test.get_new_releases
 # ap test.search_movies("jack")
-# ap test.get_movie(770672122)
+ap test.get_movie(771242341)
 # ap test.get_reviews(770672122)
 # ap test.get_upcoming_movies
 # puts test.get_upcoming_reviews
 # ap test.seed_movies
-test.seed_movies
+# test.seed_movies
