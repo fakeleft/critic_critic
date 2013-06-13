@@ -12,22 +12,9 @@
  *= require_tree .
  */
 @import "bootstrap";
+@import "font-awesome";
 
 body{
   /*background-color: blue;*/
 }
 
-.rating i{
-  font-size: 40px;
-}
-
-table.critics{
-  width: 400px;
-}
-
-table.movies{
-
-}
-.title, .year, .description{
-    padding: 0 50px 0 0;
-  }

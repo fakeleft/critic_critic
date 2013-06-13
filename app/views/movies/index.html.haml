@@ -24,14 +24,12 @@
         / %td= movie.rt_id
         %td.user_rate
           %a.btn.btn-success.up
-            Up
             %i.icon-thumbs-up.icon-white
           %a.btn.btn-danger.down
-            Down
             %i.icon-thumbs-down.icon-white
         %td= link_to movie.title, movie
         %td= movie.year
-        %td= movie.description.try(:truncate, 15, omission: '...')
+        %td= movie.description.try(:truncate, 150, omission: '...')
 
         / %td= link_to 'Edit', edit_movie_path(movie)
         / %td= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }
