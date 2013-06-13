@@ -1,0 +1,21 @@
+%h1 Listing critics
+%table
+  %thead
+    %tr
+      %th Name
+      %th Url
+      %th Publication
+      %th
+      %th
+      %th
+  %tbody
+    - @critics.each do |critic|
+      %tr
+        %td= critic.name
+        %td= critic.url
+        %td= critic.publication
+        %td= link_to 'Show', critic
+        %td= link_to 'Edit', edit_critic_path(critic)
+        %td= link_to 'Destroy', critic, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Critic', new_critic_path

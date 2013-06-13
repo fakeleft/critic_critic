@@ -1,0 +1,39 @@
+%h1 Listing movies
+%hr
+%table.movie.table-striped
+  %thead
+    %tr
+      / %th Rt
+      %th.rating
+        Rating
+      %th.title
+        %i.icon-film
+        Title
+      %th.year
+        %i.icon-info-sign
+        Year
+      %th.description
+        %i.icon-book
+        Description
+      %th
+      %th
+      %th
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        / %td= movie.rt_id
+        %td.user_rate
+          %a.btn.btn-success.up
+            Up
+            %i.icon-thumbs-up.icon-white
+          %a.btn.btn-danger.down
+            Down
+            %i.icon-thumbs-down.icon-white
+        %td= link_to movie.title, movie
+        %td= movie.year
+        %td= movie.description
+
+        / %td= link_to 'Edit', edit_movie_path(movie)
+        / %td= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Movie', new_movie_path

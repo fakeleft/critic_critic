@@ -1,0 +1,24 @@
+%p#notice= notice
+/ %p
+/   %strong Rt:
+/   = @movie.rt_id
+%p
+  %strong
+    %i.icon-film
+    Title:
+  = @movie.title
+%p
+  %strong
+    %i.icon-info-sign
+    Year:
+  = @movie.year
+%p
+  %strong
+    %i.icon-book
+    Description:
+  = @movie.description
+
+= link_to 'Edit', edit_movie_path(@movie)
+= link_to 'Back', movies_path
+= link_to 'Destroy', @movie, method: :delete, data: { confirm: 'Are you sure?' }
+
