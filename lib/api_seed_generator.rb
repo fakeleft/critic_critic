@@ -4,12 +4,12 @@ require 'json'
 require 'net/http'
 require 'yaml'
 
-class ApiRT
+class ApiSeedGenerator
   def initialize
     @base_uri = 'http://api.rottentomatoes.com/api/public/v1.0'
     # config_hash = YAML::load_file("/path/to/your/config.yaml")
     # lets find a new way to store this environment variable perhaps?
-    @api_key = YAML::load(File.open("rt_api.yml"))
+    @api_key = YAML::load(File.open("api_key.yml"))
   end
 
   def get_response(query_string)
@@ -113,12 +113,7 @@ class ApiRT
   end
 end
 
-test = ApiRT.new
-# ap test.get_new_releases
-# ap test.search_movies("jack")
-# ap test.get_movie(771242341)
-# ap test.get_reviews(770672122)
-# ap test.get_upcoming_movies
-# puts test.get_upcoming_reviews
-# ap test.seed_movies
-test.seed_critics_and_reviews
+# UNCOMMENT AND RUN TO GENERATE SEED
+# test = ApiSeedGenerator.new
+# test.seed_movies
+# test.seed_critics_and_reviews

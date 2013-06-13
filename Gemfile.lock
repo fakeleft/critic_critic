@@ -71,6 +71,9 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     minitest (4.7.4)
+    minitest-spec-rails (4.7.3)
+      minitest (~> 4.7)
+      rails (>= 3.0)
     multi_json (1.7.6)
     pg (0.15.1)
     polyglot (0.3.3)
@@ -138,6 +141,7 @@ DEPENDENCIES
   haml
   jbuilder (~> 1.0.1)
   jquery-rails
+  minitest-spec-rails
   pg
   rails (= 4.0.0.rc2)
   rails3_serve_static_assets!

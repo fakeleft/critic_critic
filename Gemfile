@@ -11,7 +11,7 @@ gem 'font-awesome-rails'
 # Use sqlite3 as the database for Active Record
 
 group :development, :test do
-
+  gem 'minitest-spec-rails'
 end
 
 # Use SCSS for stylesheets
