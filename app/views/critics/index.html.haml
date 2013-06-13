@@ -1,21 +1,23 @@
-%h1 Listing critics
-%table
+%h1 Listing All Critics
+%hr
+%table.movie.table-striped
   %thead
     %tr
-      %th Name
-      %th Url
-      %th Publication
       %th
+        %i.icon-group
+        Name
+      / %th Url
       %th
-      %th
+        %i.icon-book
+        Publication
   %tbody
     - @critics.each do |critic|
       %tr
-        %td= critic.name
-        %td= critic.url
+        %td= link_to critic.name, critic
+        / %td= critic.url
         %td= critic.publication
-        %td= link_to 'Show', critic
-        %td= link_to 'Edit', edit_critic_path(critic)
-        %td= link_to 'Destroy', critic, method: :delete, data: { confirm: 'Are you sure?' }
+        / %td= link_to 'Show', critic
+        / %td= link_to 'Edit', edit_critic_path(critic)
+        / %td= link_to 'Destroy', critic, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
 = link_to 'New Critic', new_critic_path
