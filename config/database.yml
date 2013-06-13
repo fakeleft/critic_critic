@@ -8,8 +8,7 @@ development:
   encoding: unicode
   database: critic_dev
   pool: 5
-  username: dev
-  password:
+
 
 
 # Warning: The database defined as "test" will be erased and
@@ -20,13 +19,11 @@ test:
   encoding: unicode
   database: critic_test
   pool: 5
-  username: dev
-  password:
+
 
 production:
   adapter: postgresql
   encoding: unicode
   database: critic_pro
   pool: 5
-  username: dev
-  password:
+
