@@ -31,7 +31,7 @@
             %i.icon-thumbs-down.icon-white
         %td= link_to movie.title, movie
         %td= movie.year
-        %td= movie.description
+        %td= movie.description.try(:truncate, 15, omission: '...')
 
         / %td= link_to 'Edit', edit_movie_path(movie)
         / %td= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }

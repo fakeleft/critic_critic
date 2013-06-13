@@ -16,7 +16,7 @@
   %strong
     %i.icon-book
     Description:
-  = @movie.description
+  = @movie.description.try(:truncate, 50, omission: '...')
 
 = link_to 'Edit', edit_movie_path(@movie)
 = link_to 'Back', movies_path
