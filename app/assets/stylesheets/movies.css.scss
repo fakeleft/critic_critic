@@ -1,3 +1,30 @@
 // Place all the styles related to the movies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.rating i{
+  font-size: 40px;
+}
+
+.description {
+  width:400px;
+}
+
+table.critics{
+  width: 400px;
+}
+
+.title, .year, .description{
+    padding: 0 50px 0 0;
+  }
+
+.down {
+  margin: 10px 10px 10px 5px;
+}
+
+.up {
+  margin: 10px 0px 10px 10px;
+}
+
+.user_rate i {
+  font-size:  35px;
+}
