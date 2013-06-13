@@ -5,6 +5,7 @@ class MoviesControllerTest < ActionController::TestCase
     @movie = movies(:one)
     @movie.title = "The Internship"
     @movie.year = 2013
+    @movie.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consequat, tortor et consequat laoreet, quam sapien porta metus, eu lacinia nisl lacus vel nibh. Duis a justo neque."
   end
 
   test "should get index" do
