@@ -55,7 +55,7 @@ class ApiRT
         else
           like = false
         end
-        puts "Critic.create!(critic: \"#{critic}\", publication: \"#{publication}\")"
+        puts "Critic.create!(name: \"#{critic}\", publication: \"#{publication}\")"
         puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\")"
       end
     end
@@ -116,9 +116,9 @@ end
 test = ApiRT.new
 # ap test.get_new_releases
 # ap test.search_movies("jack")
-ap test.get_movie(771242341)
+# ap test.get_movie(771242341)
 # ap test.get_reviews(770672122)
 # ap test.get_upcoming_movies
 # puts test.get_upcoming_reviews
 # ap test.seed_movies
-#test.seed_critics_and_reviews
+test.seed_critics_and_reviews
