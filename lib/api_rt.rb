@@ -17,6 +17,22 @@ class ApiRT
   def search_movies(title, page_limit=10)
     get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{page_limit}")
   end
+  def seed_movies
+    # Movie.create(title: "Hyde Park on Hudson", year: 2012, description: "Hyde Park on Hudson", rt_id: 771242341)
+
+    get_upcoming_movies["movies"].each do |movie|
+      start_string = "Movie.create("
+      title = movie["title"]
+      year = movie["year"].to_s
+      description =movie["synopsis"].
+                            gsub(/[']/, "\\\\\'").
+                              gsub(/["]/, "\\\\\"")
+      rt_id =movie["id"]
+
+      puts "Movie.create(title: \"#{title}\", year: #{year}, description: \"#{description}\", rt_id: #{rt_id})"
+
+    end
+  end
   def get_response(query_string)
     uri = URI("#{@base_uri}" + query_string)
     response = Net::HTTP.get_response(uri)
@@ -59,4 +75,6 @@ test = ApiRT.new
 # ap test.get_movie(770672122)
 # ap test.get_reviews(770672122)
 # ap test.get_upcoming_movies
-puts test.get_upcoming_reviews
+# puts test.get_upcoming_reviews
+# ap test.seed_movies
+test.seed_movies
