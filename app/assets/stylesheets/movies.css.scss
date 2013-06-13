@@ -25,6 +25,19 @@ table.critics{
   margin: 10px 0px 10px 10px;
 }
 
+
+
 .user_rate i {
   font-size:  35px;
 }
+.unselected{
+  // color: black;
+}
+.selected{
+color: black;
+  &:hover{
+    color: black;
+  }
+}
+
+

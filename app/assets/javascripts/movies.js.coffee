@@ -4,8 +4,11 @@
 
 $(document).ready ->
   $(".up").click ->
-    $(".down").fadeToggle("slow", "linear");
+    $(this).toggleClass("selected")
+    $(this).parent().children(".down").toggleClass("disabled")
+    $(this).parent().children(".down").children("i").toggleClass("disabled")
 
-$(document).ready ->
   $(".down").click ->
-    $(".up").fadeToggle("slow", "linear");
+    $(this).toggleClass("selected")
+    $(this).parent().children(".up").toggleClass("disabled")
+    $(this).parent().children(".up").children("i").toggleClass("disabled")
