@@ -4,5 +4,5 @@ class Movie < ActiveRecord::Base
 
   has_many :critic_opinions
   has_many :critics, :through => :critic_opinions
-  has_many :user_opinions
+  has_many :users, :through => :user_opinions
 end
