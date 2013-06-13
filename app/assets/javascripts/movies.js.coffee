@@ -3,12 +3,16 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
+
   $(".up").click ->
-    $(this).toggleClass("selected")
-    $(this).parent().children(".down").toggleClass("disabled")
-    $(this).parent().children(".down").children("i").toggleClass("disabled")
+    unless $(this).hasClass("disabled")
+      $(this).toggleClass("selected")
+      $(this).parent().children(".down").toggleClass("disabled")
+      $(this).parent().children(".down").children("i").toggleClass("disabled")
+
 
   $(".down").click ->
-    $(this).toggleClass("selected")
-    $(this).parent().children(".up").toggleClass("disabled")
-    $(this).parent().children(".up").children("i").toggleClass("disabled")
+    unless $(this).hasClass("disabled")
+      $(this).toggleClass("selected")
+      $(this).parent().children(".up").toggleClass("disabled")
+      $(this).parent().children(".up").children("i").toggleClass("disabled")

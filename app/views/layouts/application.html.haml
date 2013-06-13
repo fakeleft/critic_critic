@@ -7,7 +7,7 @@
     %meta{:name => 'description', :content => ''}
     %meta{:name => 'author', :content => 'Simon Wilkins <si.wilkins@sheffield.ac.uk'}
     %link{:href => 'application.css', :rel => 'stylesheet'}
-    = stylesheet_link_tag "application.css"
+    = stylesheet_link_tag "application.css", controller.controller_name
 
   %body
 
@@ -17,4 +17,4 @@
 
     %script{:src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
     %script{:src => '../assets/js/bootstrap.min.js'}
-    = javascript_include_tag :application
+    = javascript_include_tag :application,controller.controller_name
