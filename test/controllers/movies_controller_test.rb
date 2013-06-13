@@ -3,6 +3,8 @@ require 'test_helper'
 class MoviesControllerTest < ActionController::TestCase
   setup do
     @movie = movies(:one)
+    @movie.title = "The Internship"
+    @movie.year = 2013
   end
 
   test "should get index" do

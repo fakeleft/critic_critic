@@ -3,6 +3,7 @@ require 'test_helper'
 class CriticsControllerTest < ActionController::TestCase
   setup do
     @critic = critics(:one)
+    @critic.name = "Jordan"
   end
 
   test "should get index" do
