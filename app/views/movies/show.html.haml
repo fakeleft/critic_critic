@@ -1,7 +1,6 @@
 %p#notice= notice
 / %p
 /   %strong Rt:
-/   = @movie.rt_id
 %p
   %strong
     %i.icon-film
@@ -18,7 +17,27 @@
     Description:
   = @movie.description.try(:truncate, 50, omission: '...')
 
-/ = link_to 'Edit', edit_movie_path(@movie)
-= link_to 'Back', movies_path
-/ = link_to 'Destroy', @movie, method: :delete, data: { confirm: 'Are you sure?' }
+%h3 Listing All Critics
+%table.movie.table-striped
+  %thead
+    %tr
+      %th
+        Rating
+      %th
+        %i.icon-group
+        Name
+      / %th Url
+      %th
+        %i.icon-book
+        Publication
+  %tbody
+    - @opinions.each do |opinion|
+      %tr
+        %td
+          %i{class: opinion.like ? "icon-thumbs-up icon-white" : "icon-thumbs-down icon-white"}
+        %td= link_to opinion.name, opinion
+        / %td= critic.url
+        %td= opinion.publication
 
+%br/
+= link_to 'Back', movies_path

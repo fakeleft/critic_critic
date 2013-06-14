@@ -6,10 +6,11 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
   end
-
   # GET /movies/1
   # GET /movies/1.json
   def show
+     @opinions = CriticOpinion.find(:all,
+                :conditions => { :movie_id => @movie.id })
   end
 
   # GET /movies/new
