@@ -1,3 +1,8 @@
+#Critic Critic
+
+[![Code
+Climate](https://codeclimate.com/github/ShaneDelmore/critic_critic.png)](https://codeclimate.com/github/ShaneDelmore/critic_critic)
+
 [Link to Heroku](http://critic-critic.herokuapp.com/)
 
 Fix your brew environment if needed, check it with brew doctor.
