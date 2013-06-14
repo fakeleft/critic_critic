@@ -17,12 +17,12 @@
   %strong
     %i.icon-book
     Description:
-  %p= @movie.description.try(:truncate, 400, omission: '...')
+  %p.description_long= @movie.description.try(:truncate, 400, omission: '...')
 - if @opinions.count == 0
   %h3 No Reviews
 - else
   %h3 Listing All Critics
-  %table.movie.table-striped
+  %table.table-striped.reviews
     %thead
       %tr
         %th

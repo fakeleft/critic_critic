@@ -8,9 +8,17 @@
 .description {
   width:400px;
 }
-
+p.description_long {
+  width:600px;
+}
 table.critics{
   width: 400px;
+}
+.reviews td {
+  padding: 10px;
+}
+i{
+  font-size: 20px
 }
 
 .title, .year, .description{
