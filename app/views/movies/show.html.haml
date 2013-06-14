@@ -1,11 +1,13 @@
 %p#notice= notice
 / %p
 /   %strong Rt:
-%p
-  %strong
-    %i.icon-film
-    Title:
-  = @movie.title
+%h1= @movie.title
+%hr
+/ %p
+/   %strong
+/     %i.icon-film
+/     Title:
+
 %p
   %strong
     %i.icon-info-sign
@@ -15,29 +17,31 @@
   %strong
     %i.icon-book
     Description:
-  = @movie.description.try(:truncate, 50, omission: '...')
-
-%h3 Listing All Critics
-%table.movie.table-striped
-  %thead
-    %tr
-      %th
-        Rating
-      %th
-        %i.icon-group
-        Name
-      / %th Url
-      %th
-        %i.icon-book
-        Publication
-  %tbody
-    - @opinions.each do |opinion|
+  %p= @movie.description.try(:truncate, 400, omission: '...')
+- if @opinions.count == 0
+  %h3 No Reviews
+- else
+  %h3 Listing All Critics
+  %table.movie.table-striped
+    %thead
       %tr
-        %td
-          %i{class: opinion.like ? "icon-thumbs-up icon-white" : "icon-thumbs-down icon-white"}
-        %td= link_to opinion.name, opinion
-        / %td= critic.url
-        %td= opinion.publication
+        %th
+          Rating
+        %th
+          %i.icon-group
+          Name
+        / %th Url
+        %th
+          %i.icon-book
+          Review
+    %tbody
+      - @opinions.each do |opinion|
+        %tr
+          %td
+            %i{class: opinion.like ? "icon-thumbs-up icon-white" : "icon-thumbs-down icon-white"}
+          %td= link_to opinion.name, opinion
+          %td= link_to opinion.publication, opinion.url
+
 
 %br/
 = link_to 'Back', movies_path

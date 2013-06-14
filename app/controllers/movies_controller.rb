@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
-     @opinions = CriticOpinion.where({ :movie_id => @movie.id })
+    @opinions = CriticOpinion.where({ :movie_id => @movie.id })
 
   end
 
