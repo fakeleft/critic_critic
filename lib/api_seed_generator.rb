@@ -34,14 +34,13 @@ class ApiSeedGenerator
                               gsub(/["]/, "\\\\\"")
       rt_id =movie["id"]
 
-      "Movie.create!(title: \"#{title}\", year: #{year}, description: \"#{description}\", rt_id: #{rt_id})"
+      puts "Movie.create!(title: \"#{title}\", year: #{year}, description: \"#{description}\", rt_id: #{rt_id})"
 
     end
   end
 
   def seed_critics_and_reviews
-    # freshness => like
-    # [links][review] => url
+    # gets movie ids from dvd releases
     movie_ids = get_movie_ids
     movie_ids.each do |movie_id|
       critic_reviews = get_reviews(movie_id)
@@ -55,19 +54,21 @@ class ApiSeedGenerator
         else
           like = false
         end
-        puts "Critic.create!(name: \"#{critic}\", publication: \"#{publication}\")"
-        puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\")"
+        puts "c = Critic.create!(name: \"#{critic}\", publication: \"#{publication}\")"
+        puts "m = Movie.find_by_rt_id(#{movie_id})"
+        #puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\")"
+        puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
       end
     end
   end
 
   def get_movie(movie_id)
-
     get_response("/movies/#{movie_id}.json?apikey=#{@api_key}")
   end
 
   def get_movie_ids
-    new_releases = get_new_releases
+    # gets movie_ids from new releases
+    new_releases = get_upcoming_movies
     @movie_id_array = []
     new_releases["movies"].each do |movie|
       @movie_id_array << movie["id"]
@@ -114,6 +115,6 @@ class ApiSeedGenerator
 end
 
 # UNCOMMENT AND RUN TO GENERATE SEED
-# test = ApiSeedGenerator.new
-# test.seed_movies
-# test.seed_critics_and_reviews
+test = ApiSeedGenerator.new
+test.seed_movies
+test.seed_critics_and_reviews
