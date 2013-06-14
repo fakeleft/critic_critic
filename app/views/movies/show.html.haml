@@ -18,7 +18,7 @@
     Description:
   = @movie.description.try(:truncate, 50, omission: '...')
 
-= link_to 'Edit', edit_movie_path(@movie)
+/ = link_to 'Edit', edit_movie_path(@movie)
 = link_to 'Back', movies_path
-= link_to 'Destroy', @movie, method: :delete, data: { confirm: 'Are you sure?' }
+/ = link_to 'Destroy', @movie, method: :delete, data: { confirm: 'Are you sure?' }
 
