@@ -1,10 +1,14 @@
 require 'test_helper'
 
 class MoviesViewTest < ActionDispatch::IntegrationTest
-#class MoviesViewTest < Unit::Test
 
   describe 'Movies pages' do
-    describe 'Movies index' do
+    describe 'Movies home' do
+
+      it "should have the title 'Movie Critic'" do
+        visit '/movies'
+        page.must_have_title('Movie Critic')
+      end
 
       it "should have the content 'Listing movies'" do
         visit '/movies'

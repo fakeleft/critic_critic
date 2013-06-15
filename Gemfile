@@ -6,6 +6,7 @@ gem 'haml'
 gem 'bootstrap-sass'
 gem 'thin'
 gem "font-awesome-rails", github: 'bokmann/font-awesome-rails'
+gem 'turn'
 
 # use postgres for local DB and compatibility w/ Heroku
 gem 'pg'
