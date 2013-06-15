@@ -4,16 +4,15 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0.rc2'
 gem 'haml'
 gem 'bootstrap-sass'
-gem "thin"
-gem 'pg'
+gem 'thin'
 gem "font-awesome-rails", github: 'bokmann/font-awesome-rails'
 
-# Use sqlite3 as the database for Active Record
+# use postgres for local DB and compatibility w/ Heroku
+gem 'pg'
 
 group :development, :test do
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
-  #gem 'capybara/rails'
 end
 
 # Use SCSS for stylesheets
