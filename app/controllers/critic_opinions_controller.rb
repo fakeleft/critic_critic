@@ -10,6 +10,7 @@ class CriticOpinionsController < ApplicationController
   # GET /critic_opinions/1
   # GET /critic_opinions/1.json
   def show
+
   end
 
   # GET /critic_opinions/new

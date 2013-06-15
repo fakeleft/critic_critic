@@ -10,6 +10,7 @@ class CriticsController < ApplicationController
   # GET /critics/1
   # GET /critics/1.json
   def show
+    @opinions = CriticOpinion.where({ :critic_id => @critic.id })
   end
 
   # GET /critics/new

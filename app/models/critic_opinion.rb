@@ -3,4 +3,6 @@ class CriticOpinion < ActiveRecord::Base
   belongs_to :movie
 
   delegate :publication, :name, :to => :critic
+  delegate :title, :to => :movie
+
 end

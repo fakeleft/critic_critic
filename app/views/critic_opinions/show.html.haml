@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @critic_opinion.try(:name)
+%p
+  %strong Like:
+  = @critic_opinion.like
+%p
+  %strong Name:
+  = @critic_opinion.movie.title
+/ %p
+/   %strong User:
+/   = @critic_opinion.user_id
+/ %p
+/   %strong Critic:
+/   = @critic_opinion.critic_id
+/ = link_to 'Edit', edit_critic_opinion_path(@critic_opinion)
+
+=link_to 'Back', critic_opinions_path
