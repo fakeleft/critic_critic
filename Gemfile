@@ -6,7 +6,7 @@ gem 'haml'
 gem 'bootstrap-sass'
 gem "thin"
 gem 'pg'
-gem 'font-awesome-rails'
+gem "font-awesome-rails", github: 'bokmann/font-awesome-rails'
 
 # Use sqlite3 as the database for Active Record
 

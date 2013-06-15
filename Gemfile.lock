@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/bokmann/font-awesome-rails.git
+  revision: 80078b3d484d10eaab4905fe3f4a251b8eb8f2a5
+  specs:
+    font-awesome-rails (3.2.0.0)
+      railties (>= 3.2, < 5.0)
+
+GIT
   remote: git://github.com/heroku/rails3_serve_static_assets.git
   revision: 84910ceb4ca2851d650e66d3b22f5008acf253f8
   specs:
@@ -54,8 +61,6 @@ GEM
     eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    font-awesome-rails (3.2.0.0)
-      railties (>= 3.2, < 5.0)
     haml (4.0.3)
       tilt
     hike (1.2.3)
@@ -74,7 +79,7 @@ GEM
     minitest-spec-rails (4.7.3)
       minitest (~> 4.7)
       rails (>= 3.0)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     pg (0.15.1)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -137,7 +142,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 4.0.0)
-  font-awesome-rails
+  font-awesome-rails!
   haml
   jbuilder (~> 1.0.1)
   jquery-rails
