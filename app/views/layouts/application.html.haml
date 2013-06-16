@@ -1,33 +1,36 @@
 !!! html
-%html{:lang => 'en'}
+%html{lang: 'en'}
   %head
-    %meta{:charset => 'utf8'}
+    %meta{charset: 'utf8'}
     %title Movie Critic
-    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
-    %meta{:name => 'description', :content => ''}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
+    %meta{name: 'description', content: ''}
     = stylesheet_link_tag "application.css", controller.controller_name
-  .head
-    .row-fluid
-      .span12
-        .span6
-          %h1.muted Critic Critique
-        .span4.offset2{:style => "margin-top:15px;"}
-          %button.btn.pull-right{:type => "button"} Sign In
-    .navbar
-      .navbar-inner
-        .container
-          %ul.nav
-            %li
-              = link_to "Home", root_path
-            %li
-              = link_to "All Tracked Critics", critics_path
-            %li
-              = link_to "Critic Reviews", critic_opinions_path
-            %li
-              = link_to "My Profile", user_opinions_path
+
+    / Navbar div
+    .head
+      .row-fluid
+        .span12
+          .span6
+            %h1.muted Critic Critique
+          .span4.offset2{style: "margin-top:15px;"}
+            %button.btn.pull-right{type: "button"} Sign In
+      .navbar
+        .navbar-inner
+          .container
+            %ul.nav
+              %li
+                = link_to "Home", root_path
+              %li
+                = link_to "All Tracked Critics", critics_path
+              %li
+                = link_to "Critic Reviews", critic_opinions_path
+              %li
+                = link_to "My Profile", user_opinions_path
+    / End of navbar
 
   %body
     .container
       / %h1 Movie Critic Critic
       = yield
-    = javascript_include_tag :application,controller.controller_name
+    = javascript_include_tag :application, controller.controller_name
