@@ -5,12 +5,15 @@ class CriticOpinionsViewTest < ActionDispatch::IntegrationTest
   describe 'Critic Opinions pages' do
     describe 'Critic Opinions home' do
 
-      it "should have the title 'Movie Critic'" do
+      it "should have the title 'Movie Critic | List of Critic Opinions'" do
         visit '/critic_opinions'
-        page.must_have_title('Movie Critic')
+        page.must_have_title('Movie Critic | List of Critic Opinions')
       end
 
-      it "should have the content 'List of Critic Opinions'"
+      it "should have h1 'List of Critic Opinions'" do
+        visit '/critic_opinions'
+        page.must_have_selector('h1', text:'List of Critic Opinions')
+      end
 
     end
   end

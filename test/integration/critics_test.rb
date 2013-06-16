@@ -5,14 +5,14 @@ class CriticsViewTest < ActionDispatch::IntegrationTest
   describe 'Critics pages' do
     describe 'Critics home' do
 
-      it "should have the title 'Movie Critic'" do
+      it "should have the title 'Movie Critic | All Critics'" do
         visit '/critics'
-        page.must_have_title('Movie Critic')
+        page.must_have_title('Movie Critic | All Critics')
       end
 
-      it "should have the content 'All Critics'" do
+      it "should have h1 'All Critics'" do
         visit '/critics'
-        page.must_have_content('All Critics')
+        page.must_have_selector('h1', text:'All Critics')
       end
     end
   end
