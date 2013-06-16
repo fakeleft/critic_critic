@@ -6,6 +6,7 @@ class MoviesViewTest < ActionDispatch::IntegrationTest
     describe 'Movies home' do
 
       it "should have the title 'Movie Critic | Listing movies'" do
+        skip
         visit '/movies'
         page.must_have_title('Movie Critic | Listing movies')
       end
