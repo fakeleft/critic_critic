@@ -10,9 +10,9 @@ class CriticsViewTest < ActionDispatch::IntegrationTest
         page.must_have_title('Movie Critic')
       end
 
-      it "should have the content 'Listing All Critics'" do
+      it "should have the content 'All Critics'" do
         visit '/critics'
-        page.must_have_content('Listing All Critics')
+        page.must_have_content('All Critics')
       end
     end
   end

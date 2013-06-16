@@ -1,4 +1,4 @@
-%h1 Listing All Critics
+%h1 All Critics
 %hr
 %table.movie.table-striped
   %thead
@@ -19,5 +19,5 @@
         / %td= link_to 'Show', critic
         / %td= link_to 'Edit', edit_critic_path(critic)
         / %td= link_to 'Destroy', critic, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
+%br
 = link_to 'New Critic', new_critic_path
