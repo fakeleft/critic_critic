@@ -11,14 +11,14 @@ class MoviesViewTest < ActionDispatch::IntegrationTest
         page.must_have_title('Movie Critic | Listing movies')
       end
 
-      it "should have h1 'Listing movies'" do
+      it "should have h1 'Browse Movies'" do
         visit '/movies'
-        page.must_have_selector('h1', text:'Listing movies')
+        page.must_have_selector('h1', text:'Browse Movies')
       end
 
-      it "should have the content 'Listing movies'" do
+      it "should have the content 'Browse Movies'" do
         visit '/movies'
-        page.must_have_content('Listing movies')
+        page.must_have_content('Browse Movies')
       end
 
     end
