@@ -29,8 +29,8 @@
 @import "bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
 
 // Components: Nav
-// @import "bootstrap/navs";
-// @import "bootstrap/navbar";
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
 // @import "bootstrap/breadcrumbs";
 // @import "bootstrap/pagination";
 // @import "bootstrap/pager";
