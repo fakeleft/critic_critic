@@ -1,10 +1,6 @@
 %p#notice= notice
 %h1= @critic.try(:name)
 %hr
-
-/ %p
-/   %strong Url:
-/   = @critic.url
 %p
   %strong Publication:
   = @critic.publication
@@ -17,7 +13,6 @@
       %th
         %i.icon-film
         Movie
-      / %th Url
       %th
         %i.icon-book
         Review
@@ -25,11 +20,9 @@
   - @critic.critic_opinions.each do |opinion|
     %tr
       %td
-        %i{class: opinion.like ? "icon-thumbs-up icon-white" : "icon-thumbs-down icon-white"}
+        %i{ thumbs(opinion.like) }
       %td= link_to opinion.title, opinion.movie
       %td= link_to opinion.publication, opinion.url
-
-
 %br
 %br
 = link_to 'Back', critics_path

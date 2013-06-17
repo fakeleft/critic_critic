@@ -1,13 +1,6 @@
 %p#notice= notice
-/ %p
-/   %strong Rt:
 %h1= @movie.title
 %hr
-/ %p
-/   %strong
-/     %i.icon-film
-/     Title:
-
 %p
   %strong
     %i.icon-info-sign
@@ -30,7 +23,6 @@
         %th
           %i.icon-group
           Name
-        / %th Url
         %th
           %i.icon-book
           Review
@@ -38,10 +30,8 @@
       - @opinions.each do |opinion|
         %tr
           %td
-            %i{class: opinion.like ? "icon-thumbs-up icon-white" : "icon-thumbs-down icon-white"}
+            %i{ thumbs(opinion.like) }
           %td= link_to opinion.name, opinion.critic
           %td= link_to opinion.publication, opinion.url
-
-
-%br/
+%br
 = link_to 'Back', movies_path
