@@ -1,10 +1,13 @@
 class UserOpinionsController < ApplicationController
   before_action :set_user_opinion, only: [:show, :edit, :update, :destroy]
 
+
   # GET /user_opinions
   # GET /user_opinions.json
   def index
     @user_opinions = UserOpinion.all
+
+    @movies = Movie.all
   end
 
   # GET /user_opinions/1

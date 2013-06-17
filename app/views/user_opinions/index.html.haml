@@ -1,0 +1,34 @@
+%h1 Movies
+%hr
+%table.movie.table-striped
+  %thead
+    %tr
+      %th.rating
+        Rating
+      %th.title
+        %i.icon-film
+        Title
+      %th.year
+        %i.icon-calendar
+        Year
+      %th.description
+        %i.icon-book
+        Description
+      %th
+      %th
+      %th
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        %td.user_rate
+          .btn-group{"data-toggle" => "buttons-radio"}
+            %button.btn{"data-toggle" => "button", :type => "button"}
+              %i.icon-thumbs-up
+              %input{:name => "radio-btn-ctrl", :type => "radio", :value => "1"}
+            %button.btn{"data-toggle" => "button", :type => "button"}
+              %i.icon-thumbs-down
+              %input{:name => "radio-btn-ctrl", :type => "radio", :value => "0"}
+        %td= link_to movie.title, movie
+        %td= movie.year
+        %td= movie.description.try(:truncate, 150, omission: '...')
+%br
