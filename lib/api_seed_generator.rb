@@ -1,15 +1,18 @@
-require 'ap'
+# require 'ap'
 require 'uri'
 require 'json'
 require 'net/http'
 require 'yaml'
 
 class ApiSeedGenerator
+
+  attr_accessor :api_key
+
   def initialize
     @base_uri = 'http://api.rottentomatoes.com/api/public/v1.0'
     # config_hash = YAML::load_file("/path/to/your/config.yaml")
     # lets find a new way to store this environment variable perhaps?
-    @api_key = YAML::load(File.open("api_key.yml"))
+    @api_key = YAML::load(File.open(File.join(Rails.root , 'lib', 'api_key.yml'), "r"))
   end
 
   def get_response(query_string)
@@ -19,7 +22,6 @@ class ApiSeedGenerator
   end
 
   def parse_response(response)
-
     JSON.parse(response.body)
   end
 
@@ -77,7 +79,6 @@ class ApiSeedGenerator
   end
 
   def search_movies(title, page_limit=10)
-
     get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{page_limit}")
   end
 
@@ -88,12 +89,10 @@ class ApiSeedGenerator
   end
 
   def get_reviews(movie_id, page_limit=10)
-
     get_response("/movies/#{movie_id}/reviews.json?apikey=#{@api_key}&page_limit=#{page_limit}")
   end
 
   def get_upcoming_movies(page_limit=10)
-
     get_response("/lists/movies/upcoming.json?apikey=#{@api_key}&page_limit=#{page_limit}")
   end
 
@@ -115,6 +114,7 @@ class ApiSeedGenerator
 end
 
 # UNCOMMENT AND RUN TO GENERATE SEED
-test = ApiSeedGenerator.new
-test.seed_movies
-test.seed_critics_and_reviews
+# test = ApiSeedGenerator.new
+# test.seed_movies
+# test.seed_critics_and_reviews
+# puts Rails.root

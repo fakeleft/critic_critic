@@ -1,11 +1,31 @@
-#
-##
-#
-
 require 'test_helper'
+require 'api_seed_generator'
 
-class ApiSeedGeneratorTest < MiniTest::Unit::TestCase
-  describe 'ApiRT' do
-    it 'should get an api key'
+describe 'ApiSeedGenerator' do
+  before do
+    @seed_generator = ApiSeedGenerator.new
+  end
+
+  it 'should get an api key' do
+    @seed_generator.api_key.class.must_equal String
+  end
+  it 'should get the details for one movie by title' do
+    movie = @seed_generator.search_movies("Fried&Green&Tomatoes", 1)
+    movie.class.must_equal Hash
+    movie["movies"][0]["title"].must_equal "Fried Green Tomatoes"
+  end
+  it 'should get the details for one movie by id' do
+    movie = @seed_generator.get_movie(10104)
+    movie["title"].must_equal "Fried Green Tomatoes"
+  end
+  it 'should get the reviews for one movie by id' do
+    reviews = @seed_generator.get_reviews(10104)
+    reviews["reviews"].wont_be_nil
+  end
+  it 'should get a list of upcoming movie ids' do
+    movie_ids = @seed_generator.get_movie_ids
+    movie_ids.class.must_equal Array
+    movie_ids.empty?.must_equal false
+    movie_ids.length.must_equal 10
   end
 end
