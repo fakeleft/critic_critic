@@ -28,11 +28,11 @@
           / %a.btn.btn-danger.down
           /   %i.icon-thumbs-down.icon-white
           .btn-group{"data-toggle" => "buttons-radio"}
-            %button.btn.btn-success{"data-toggle" => "button", :type => "button"}
-              %i.icon-thumbs-up.icon-white
+            %button.btn{"data-toggle" => "button", :type => "button"}
+              %i.icon-thumbs-up
               %input{:name => "radio-btn-ctrl", :type => "radio", :value => "1"}
-            %button.btn.btn-danger{"data-toggle" => "button", :type => "button"}
-              %i.icon-thumbs-down.icon-white
+            %button.btn{"data-toggle" => "button", :type => "button"}
+              %i.icon-thumbs-down
               %input{:name => "radio-btn-ctrl", :type => "radio", :value => "0"}
         %td= link_to movie.title, movie
         %td= movie.year
