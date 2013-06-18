@@ -8,13 +8,15 @@ class UserOpinionsController < ApplicationController
   # POST /user_opinions
   # POST /user_opinions.json
   def create
+    @user_opinion = UserOpinion.new(user_opinion_params)
+
     respond_to do |format|
-      if opinion.save
-        format.html { redirect_to critics_path, notice: 'User opinion was successfully created.' }
-        format.json { render action: 'show', status: :created, location: opinion }
+      if @user_opinion.save
+        format.html { redirect_to @user_opinion, notice: 'User was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @user_opinion }
       else
         format.html { render action: 'new' }
-        format.json { render json: opinion.errors, status: :unprocessable_entity }
+        format.json { render json: @user_opinion.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,6 +53,6 @@ class UserOpinionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_opinion_params
-      params.require(:user_opinion).permit(:like, :user_id, "movie_id")
+      params.require(:user_opinion).permit(:like, :user_id, :movie_id)
     end
 end

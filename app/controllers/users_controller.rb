@@ -41,10 +41,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     puts "$$$"
-
-    array_opinions = []
-    params["user_opinion"]["movie_id"].each do |key, value|
-      array_opinions << @user.UserOpinion.create({ like: value, movie_id: key })
+    unless params["user"]["movie_id"].nil?
+      array_opinions = []
+      params["user"]["movie_id"].each do |key, value|
+        array_opinions << UserOpinion.create({ like: value, user_id: params["id"], movie_id: key })
+      end
     end
     respond_to do |format|
       if @user.update(user_params)

@@ -5,12 +5,6 @@ class UserOpinionsControllerTest < ActionController::TestCase
     @user_opinion = user_opinions(:one)
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:user_opinions)
-  end
-
   test "should get new" do
     get :new
     assert_response :success
@@ -24,18 +18,9 @@ class UserOpinionsControllerTest < ActionController::TestCase
     assert_redirected_to user_opinion_path(assigns(:user_opinion))
   end
 
-  test "should show user_opinion" do
-    get :show, id: @user_opinion
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @user_opinion
-    assert_response :success
-  end
-
   test "should update user_opinion" do
-    patch :update, id: @user_opinion, user_opinion: { like: @user_opinion.like, movie_id: @user_opinion.movie_id, user_id: @user_opinion.user_id }
+    puts user: { movie_id: { @user_opinion.movie_id => true }, id: 1 }
+    patch :update, id: @user_opinion, user_opinion: { movie_id: { @user_opinion.movie_id => true }, id: 1 }
     assert_redirected_to user_opinion_path(assigns(:user_opinion))
   end
 
