@@ -8,6 +8,8 @@ class UserOpinionsController < ApplicationController
     @user_opinions = UserOpinion.all
 
     @movies = Movie.all
+
+    @user_opinion = UserOpinion.new
   end
 
   # GET /user_opinions/1
@@ -27,15 +29,24 @@ class UserOpinionsController < ApplicationController
   # POST /user_opinions
   # POST /user_opinions.json
   def create
-    @user_opinion = UserOpinion.new(user_opinion_params)
-
+    puts "$$$"
+    # puts user_opinion_params
+    # puts params["user_opinion"]["movie_id"]
+    # puts user_opinion_params["movie_id"]
+    # @user_opinion = UserOpinion.create(user_opinion_params)
+    array_opinions = []
+    params["user_opinion"]["movie_id"].each do |key, value|
+      array_opinions << UserOpinion.new({like: value, user_id: 1, movie_id:key})
+    end
     respond_to do |format|
-      if @user_opinion.save
-        format.html { redirect_to @user_opinion, notice: 'User opinion was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user_opinion }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user_opinion.errors, status: :unprocessable_entity }
+      array_opinions.each do |opinion|
+        if opinion.save
+          format.html { redirect_to critics_path, notice: 'User opinion was successfully created.' }
+          format.json { render action: 'show', status: :created, location: opinion }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: opinion.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -72,6 +83,6 @@ class UserOpinionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_opinion_params
-      params.require(:user_opinion).permit(:like, :user_id, :movie_id)
+      params.require(:user_opinion).permit(:like, :user_id, "movie_id")
     end
 end

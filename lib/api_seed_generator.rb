@@ -4,6 +4,11 @@ require 'json'
 require 'net/http'
 require 'yaml'
 
+# movie structure
+RtMovie = Struct.new(:title, :year, :synopsis, :rt_id)
+RtCritic = Struct.new(:name, :publication, :updated_time)
+RtReview = Struct.new(:rt_id, :like, :review_url, :critic)
+
 class ApiSeedGenerator
 
   attr_accessor :api_key
@@ -18,16 +23,10 @@ class ApiSeedGenerator
   def get_response(query_string)
     uri = URI("#{@base_uri}" + query_string)
     response = Net::HTTP.get_response(uri)
-    parse_response(response)
-  end
-
-  def parse_response(response)
     JSON.parse(response.body)
   end
 
   def seed_movies
-    # Movie.create(title: "Hyde Park on Hudson", year: 2012, description: "Hyde Park on Hudson", rt_id: 771242341)
-
     get_upcoming_movies["movies"].each do |movie|
       title = movie["title"]
       year = movie["year"].to_s
@@ -37,7 +36,6 @@ class ApiSeedGenerator
       rt_id =movie["id"]
 
       puts "Movie.create!(title: \"#{title}\", year: #{year}, description: \"#{description}\", rt_id: #{rt_id})"
-
     end
   end
 
@@ -58,7 +56,6 @@ class ApiSeedGenerator
         end
         puts "c = Critic.create!(name: \"#{critic}\", publication: \"#{publication}\")"
         puts "m = Movie.find_by_rt_id(#{movie_id})"
-        #puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\")"
         puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
       end
     end
@@ -111,10 +108,44 @@ class ApiSeedGenerator
     end
     movie_reviews
   end
-end
 
+# the following code is in a state of refactor using Struct classes
+
+  def search_movies_new(title, page_limit=10)
+    response = get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{page_limit}")
+
+    RtMovie.new(
+      response["movies"][0]["title"],
+      response["movies"][0]["year"],
+      response["movies"][0]["synopsis"],
+      response["movies"][0]["id"].to_i
+      )
+  end
+
+  def get_movie_reviews_new(rt_id, page_limit=10)
+    response = get_response("/movies/#{rt_id}/reviews.json?apikey=#{@api_key}&page_limit=#{page_limit}")
+    reviews = []
+    response['reviews'].each do |review|
+      reviews << parse_review(review, rt_id)
+    end
+    reviews
+  end
+
+  def parse_review(review, rt_id)
+    critic = RtCritic.new(
+        review["critic"],
+        review["publication"]
+        )
+    RtReview.new(
+      rt_id,
+      (review["freshness"] == "fresh"),
+      review["links"]["review"],
+      critic
+      )
+    # puts review
+  end
+end
 # UNCOMMENT AND RUN TO GENERATE SEED
 # test = ApiSeedGenerator.new
 # test.seed_movies
 # test.seed_critics_and_reviews
-# puts Rails.root

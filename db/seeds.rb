@@ -9,6 +9,9 @@
 CriticOpinion.delete_all
 Movie.delete_all
 Critic.delete_all
+User.delete_all
+
+User.create!(name: "Dustin")
 
 Movie.create!(title: "World War Z", year: 2013, description: "The story revolves around United Nations employee Gerry Lane (Pitt), who traverses the world in a race against time to stop a pandemic that is toppling armies and governments and threatening to decimate humanity itself. (C) Paramount", rt_id: 770785616)
 Movie.create!(title: "Monsters University", year: 2013, description: "Mike Wazowski and James P. Sullivan are an inseparable pair, but that wasn\'t always the case. From the moment these two mismatched monsters met they couldn\'t stand each other. \"Monsters University\" unlocks the door to how Mike and Sulley overcame their differences and became the best of friends. -- (C) Walt Disney", rt_id: 771238418)
