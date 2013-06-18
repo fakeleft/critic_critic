@@ -30,10 +30,12 @@
             .btn-group{ "data-toggle" => "buttons-radio" }
               %button.btn{ "data-toggle" => "button", type: "button" }
                 %i.icon-thumbs-up
-                = radio_button("user_opinion", ["like", "movie_id"], ["true", movie.id])
+                %input{:name => "user_opinion[movie_id][#{movie.id}]", :type => "radio", :value => "true"}
+                / = radio_button("user_opinion", ["like", "movie_id"], ["true", movie.id])
               %button.btn{ "data-toggle" => "button", type: "button" }
                 %i.icon-thumbs-down
-                = radio_button("user_opinion", "like", "false")
+                %input{:name => "user_opinion[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
+                / = radio_button("user_opinion", "like", "false")
           %td= link_to movie.title, movie
           %td= movie.year
           %td= movie.description.try(:truncate, 150, omission: '...')

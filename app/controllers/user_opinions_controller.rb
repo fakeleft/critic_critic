@@ -29,9 +29,11 @@ class UserOpinionsController < ApplicationController
   # POST /user_opinions
   # POST /user_opinions.json
   def create
-    puts "##"
-    puts @user_opinion = UserOpinion.new(user_opinion_params)
-    # user_opinion_params.each do |opinion|
+    user_opinion_params
+    # puts @user_opinion = UserOpinion.create(user_opinion_params)
+    user_opinion_params[movie_id].each do |opinion|
+      opinion
+    end
     respond_to do |format|
       if @user_opinion.save
         format.html { redirect_to @user_opinion, notice: 'User opinion was successfully created.' }
