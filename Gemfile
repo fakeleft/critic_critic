@@ -6,7 +6,6 @@ gem 'haml'
 gem 'bootstrap-sass'
 gem 'thin'
 gem "font-awesome-rails", github: 'bokmann/font-awesome-rails'
-gem 'turn'
 
 # use postgres for local DB and compatibility w/ Heroku
 gem 'pg'
@@ -14,6 +13,9 @@ gem 'pg'
 group :development, :test do
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
+  gem 'turn'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 # Use SCSS for stylesheets

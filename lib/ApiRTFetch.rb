@@ -11,7 +11,6 @@
 ######################################################################
 
 class ApiRTFetch
-
   def initialize
     @base_uri = 'http://api.rottentomatoes.com/api/public/v1.0'
     @api_key = YAML::load(File.open("lib/api_key.yml"))
@@ -19,20 +18,40 @@ class ApiRTFetch
     # MUST BE BELOW api-limit of 10-per-sec
     @movie_count = 10
     @review_count = 10
-    @upcoming_movie_ids = []
+    @movie_ids = []
   end
 
   def self.clear_db
     # clears the current database of all entries
+    puts "Deleting DB Movie instances..."
     Movie.delete_all
+    puts "Deleting DB Critic instances..."
     Critic.delete_all
+    puts "Deleting DB CriticOpinion instances..."
     CriticOpinion.delete_all
+    puts "DONE"
   end
 
   def get_response(query_string)
     uri = URI("#{@base_uri}" + query_string)
     response = Net::HTTP.get_response(uri)
     return JSON.parse(response.body)
+  end
+
+  def get_upcoming_dvds
+    upcoming_dvds = get_response("/lists/dvds/upcoming.json?apikey=#{@api_key}")
+
+    # creates each movie instance
+    upcoming_dvds["movies"].each do |movie|
+      m = Movie.new
+      m.rt_id = movie["id"]
+      m.title = movie["title"]
+      m.description = movie["synopsis"]
+      m.year = movie["year"]
+      m.save
+      # builds array of rt_ids for review fetching
+      @movie_ids << movie["id"]
+    end
   end
 
   def get_upcoming_movies
@@ -47,12 +66,12 @@ class ApiRTFetch
       m.year = movie["year"]
       m.save
       # builds array of rt_ids for review fetching
-      @upcoming_movie_ids << movie["id"]
+      @movie_ids << movie["id"]
     end
   end
 
   def get_all_reviews
-    @upcoming_movie_ids.each do |id|
+    @movie_ids.each do |id|
       get_reviews_by_id(id)
     end
   end
