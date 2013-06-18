@@ -1,0 +1,45 @@
+%h1 Rate Some Movies!
+%hr
+= form_for(@user) do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@user.errors.count, "error")
+        prohibited this movie from being saved:
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+  %table.movie.table-striped
+    %thead
+      %tr
+        %th.rating
+          Rating
+        %th.title
+          %i.icon-film
+          Title
+        %th.year
+          %i.icon-calendar
+          Year
+        %th.description
+          %i.icon-book
+          Description
+    %tbody
+      - @movies.each do |movie|
+        %tr
+          %td.user_rate
+            .btn-group{ "data-toggle" => "buttons-radio" }
+              %button.btn{ "data-toggle" => "button", type: "button" }
+                %i.icon-thumbs-up
+                %input{:name => "user_opinion[movie_id][#{movie.id}]", :type => "radio", :value => "true"}
+                / = radio_button("user_opinion", ["like", "movie_id"], ["true", movie.id])
+              %button.btn{ "data-toggle" => "button", type: "button" }
+                %i.icon-thumbs-down
+                %input{:name => "user_opinion[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
+                / = radio_button("user_opinion", "like", "false")
+          %td= link_to movie.title, movie
+          %td= movie.year
+          %td= movie.description.try(:truncate, 150, omission: '...')
+  .actions
+    %button{ type: "submit", class: "positive btn btn-large" }
+      Submit
+%br

@@ -1,52 +1,20 @@
 class UserOpinionsController < ApplicationController
-  before_action :set_user_opinion, only: [:show, :edit, :update, :destroy]
-
-
-  # GET /user_opinions
-  # GET /user_opinions.json
-  def index
-    @user_opinions = UserOpinion.all
-
-    @movies = Movie.all
-
-    @user_opinion = UserOpinion.new
-  end
-
-  # GET /user_opinions/1
-  # GET /user_opinions/1.json
-  def show
-  end
-
+  before_action :set_user_opinion, only: [:update, :destroy]
   # GET /user_opinions/new
   def new
     @user_opinion = UserOpinion.new
   end
 
-  # GET /user_opinions/1/edit
-  def edit
-  end
-
   # POST /user_opinions
   # POST /user_opinions.json
   def create
-    puts "$$$"
-    # puts user_opinion_params
-    # puts params["user_opinion"]["movie_id"]
-    # puts user_opinion_params["movie_id"]
-    # @user_opinion = UserOpinion.create(user_opinion_params)
-    array_opinions = []
-    params["user_opinion"]["movie_id"].each do |key, value|
-      array_opinions << UserOpinion.new({like: value, user_id: 1, movie_id:key})
-    end
     respond_to do |format|
-      array_opinions.each do |opinion|
-        if opinion.save
-          format.html { redirect_to critics_path, notice: 'User opinion was successfully created.' }
-          format.json { render action: 'show', status: :created, location: opinion }
-        else
-          format.html { render action: 'new' }
-          format.json { render json: opinion.errors, status: :unprocessable_entity }
-        end
+      if opinion.save
+        format.html { redirect_to critics_path, notice: 'User opinion was successfully created.' }
+        format.json { render action: 'show', status: :created, location: opinion }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: opinion.errors, status: :unprocessable_entity }
       end
     end
   end
