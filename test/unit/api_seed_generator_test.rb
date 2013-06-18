@@ -41,17 +41,16 @@ describe 'ApiSeedGenerator' do
   end
 
   it 'should return an array of MovieReviews' do
-    reviews = @seed_generator.get_reviews_new(10104)
+    reviews = @seed_generator.get_movie_reviews_new(10104)
     reviews.class.must_equal Array
-    reviews[0].class.must_equal RtReview
     this_review = reviews[0]
+    this_review.class.must_equal RtReview
     this_review.like.must_equal true
     this_review.rt_id.must_equal 10104
     this_review.review_url.must_equal "http://www.ew.com/ew/article/0,,309135,00.html"
-    this_review.name.must_equal "Owen Gleiberman"
-    this_review.publication.must_equal "Entertainment Weekly"
+    this_review.critic.name.must_equal "Owen Gleiberman"
+    this_review.critic.publication.must_equal "Entertainment Weekly"
   end
-
 
 end
 
