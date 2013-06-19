@@ -5,9 +5,30 @@ require 'net/http'
 require 'yaml'
 
 # movie structure
-RtMovie = Struct.new(:title, :year, :synopsis, :rt_id)
-RtCritic = Struct.new(:name, :publication, :updated_time)
-RtReview = Struct.new(:rt_id, :like, :review_url, :critic)
+RtMovie = Struct.new(:title, :year, :synopsis, :rt_id) do
+  def escaped_synopsis
+    synopsis.gsub(/[']/, "\\\\\'").
+      gsub(/["]/, "\\\\\"")
+  end
+
+  def to_seed_string
+    "Movie.create!(title: \"#{title}\", year: #{year.to_s}, description: \"#{escaped_synopsis}\", rt_id: #{rt_id})"
+  end
+end
+
+RtCritic = Struct.new(:name, :publication) do
+  def to_seed_string
+    "c = Critic.create!(name: \"#{name}\", publication: \"#{publication}\")"
+  end
+end
+
+RtReview = Struct.new(:rt_id, :like, :review_url, :critic) do
+  def to_seed_string
+    seed_string = critic.to_seed_string
+    seed_string << "\nm = Movie.find_by_rt_id(#{rt_id})\n" +
+    "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
+  end
+end
 
 class ApiSeedGenerator
 
@@ -15,9 +36,17 @@ class ApiSeedGenerator
 
   def initialize
     @base_uri = 'http://api.rottentomatoes.com/api/public/v1.0'
-    # config_hash = YAML::load_file("/path/to/your/config.yaml")
-    # lets find a new way to store this environment variable perhaps?
-    @api_key = YAML::load(File.open(File.join(Rails.root , 'lib', 'api_key.yml'), "r"))
+    set_api_key
+  end
+
+  def set_api_key
+    #Running without rails.
+    if File.exists?('api_key.yml')
+      @api_key = YAML::load(File.open('api_key.yml'))
+    else
+      #Running in rails.
+      @api_key = YAML::load(File.open(File.join(Rails.root , 'lib', 'api_key.yml'), "r"))
+    end
   end
 
   def get_response(query_string)
@@ -26,73 +55,57 @@ class ApiSeedGenerator
     JSON.parse(response.body)
   end
 
-  def seed_movies
-    get_upcoming_movies["movies"].each do |movie|
-      title = movie["title"]
-      year = movie["year"].to_s
-      description =movie["synopsis"].
-                            gsub(/[']/, "\\\\\'").
-                              gsub(/["]/, "\\\\\"")
-      rt_id =movie["id"]
-
-      puts "Movie.create!(title: \"#{title}\", year: #{year}, description: \"#{description}\", rt_id: #{rt_id})"
-    end
+  def seed_movies(movies)
+    movies.map { |movie| movie.to_seed_string }
   end
 
-  def seed_critics_and_reviews
-    # gets movie ids from dvd releases
-    movie_ids = get_movie_ids
+  def seed_reviews(movies)
+    seed_strings = []
+    movie_ids = get_movie_ids(movies)
     movie_ids.each do |movie_id|
-      critic_reviews = get_reviews(movie_id)
-      critic_reviews["reviews"].each do |review|
-        critic = review["critic"]
-        review_url = review["links"]["review"]
-        publication = review["publication"]
-        like = review["freshness"]
-        if like == "fresh"
-          like = true
-        else
-          like = false
-        end
-        puts "c = Critic.create!(name: \"#{critic}\", publication: \"#{publication}\")"
-        puts "m = Movie.find_by_rt_id(#{movie_id})"
-        puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
+      get_movie_reviews(movie_id).each do |review|
+        seed_strings << review.to_seed_string
       end
     end
+    seed_strings
+    #
+    # get_movie_ids.each do |movie_id|
+
+    # get_movie_ids.each do |movie_id|
+    #   critic_reviews = get_reviews(movie_id)
+    #   critic_reviews["reviews"].each do |review|
+    #     critic = review["critic"]
+    #     review_url = review["links"]["review"]
+    #     publication = review["publication"]
+    #     like = review["freshness"]
+    #     if like == "fresh"
+    #       like = true
+    #     else
+    #       like = false
+    #     end
+    #     puts "c = Critic.create!(name: \"#{critic}\", publication: \"#{publication}\")"
+    #     puts "m = Movie.find_by_rt_id(#{movie_id})"
+    #     puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
+    #   end
+    # end
   end
 
   def get_movie(movie_id)
-    get_response("/movies/#{movie_id}.json?apikey=#{@api_key}")
+    response = get_response("/movies/#{movie_id}.json?apikey=#{@api_key}")
+    parse_movie(response)
   end
 
-  def get_movie_ids
-    # gets movie_ids from new releases
-    new_releases = get_upcoming_movies
-    @movie_id_array = []
-    new_releases["movies"].each do |movie|
-      @movie_id_array << movie["id"]
-    end
-    return @movie_id_array
+  def get_movie_ids(movies)
+    movies.map { |movie| movie.rt_id }
   end
 
-  def search_movies(title, page_limit=10)
-    get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{page_limit}")
-  end
+  # def get_new_releases(page_limit=10)
+  #   base = "/lists/dvds/current_releases.json?apikey="
+  #   number_of_records = "&page_limit=#{page_limit}"
+  #   get_response(base + @api_key + number_of_records)
+  # end
 
-  def get_new_releases(page_limit=10)
-    base = "/lists/dvds/current_releases.json?apikey="
-    number_of_records = "&page_limit=#{page_limit}"
-    get_response(base + @api_key + number_of_records)
-  end
-
-  def get_reviews(movie_id, page_limit=10)
-    get_response("/movies/#{movie_id}/reviews.json?apikey=#{@api_key}&page_limit=#{page_limit}")
-  end
-
-  def get_upcoming_movies(page_limit=10)
-    get_response("/lists/movies/upcoming.json?apikey=#{@api_key}&page_limit=#{page_limit}")
-  end
-
+#get reviews for movies
   def get_upcoming_reviews(page_limit=10)
     movies_json = get_upcoming_movies
     movie_ids = []
@@ -111,9 +124,8 @@ class ApiSeedGenerator
 
 # the following code is in a state of refactor using Struct classes
 
-  def search_movies_new(title, page_limit=10)
+  def search_movies(title, page_limit=10)
     response = get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{page_limit}")
-
     RtMovie.new(
       response["movies"][0]["title"],
       response["movies"][0]["year"],
@@ -122,13 +134,20 @@ class ApiSeedGenerator
       )
   end
 
-  def get_movie_reviews_new(rt_id, page_limit=10)
+  def get_movie_reviews(rt_id, page_limit=10)
     response = get_response("/movies/#{rt_id}/reviews.json?apikey=#{@api_key}&page_limit=#{page_limit}")
     reviews = []
     response['reviews'].each do |review|
       reviews << parse_review(review, rt_id)
     end
     reviews
+  end
+
+  def parse_movie(movie)
+    movie = RtMovie.new(movie["title"],
+      movie["year"],
+      movie["synopsis"],
+      movie["id"].to_i)
   end
 
   def parse_review(review, rt_id)
@@ -144,8 +163,13 @@ class ApiSeedGenerator
       )
     # puts review
   end
+
+  def get_upcoming_movies(page_limit=10)
+    response = get_response("/lists/movies/upcoming.json?apikey=#{@api_key}&page_limit=#{page_limit}")
+    upcoming_movies = []
+    response['movies'].each do |movie|
+      upcoming_movies << parse_movie(movie)
+    end
+    upcoming_movies
+  end
 end
-# UNCOMMENT AND RUN TO GENERATE SEED
-# test = ApiSeedGenerator.new
-# test.seed_movies
-# test.seed_critics_and_reviews
