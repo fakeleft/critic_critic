@@ -46,23 +46,12 @@ class UsersController < ApplicationController
     puts "$$$"
     unless params["user"]["movie_id"].nil?
       params["user"]["movie_id"].each do |movie, like|
-        user_opinions = UserOpinion.find_by(user_id: params["id"], movie_id: movie)
-        # Refactor
-        # http://guides.rubyonrails.org/active_record_querying.html#dynamic-finders
-        if user_opinions.nil?
-          UserOpinion.create(
-            like: like,
-            user_id: params["id"],
-            movie_id: movie
-          )
-        else
+        user_opinions = UserOpinion.find_or_create_by(user_id: params["id"], movie_id: movie)
           UserOpinion.update(
             user_opinions,
             like: like,
-            user_id: params["id"],
             movie_id: movie
-          )
-        end
+            )
       end
     end
     respond_to do |format|
