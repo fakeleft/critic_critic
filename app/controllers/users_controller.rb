@@ -47,6 +47,8 @@ class UsersController < ApplicationController
     unless params["user"]["movie_id"].nil?
       params["user"]["movie_id"].each do |movie, like|
         user_opinions = UserOpinion.find_by(user_id: params["id"], movie_id: movie)
+        # Refactor
+        # http://guides.rubyonrails.org/active_record_querying.html#dynamic-finders
         if user_opinions.nil?
           UserOpinion.create(
             like: like,
