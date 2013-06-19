@@ -10,6 +10,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    puts params["user"]
+
+    # @user_opinion = @user.user_opinions
   end
 
   # GET /users/new
@@ -42,9 +45,22 @@ class UsersController < ApplicationController
   def update
     puts "$$$"
     unless params["user"]["movie_id"].nil?
-      array_opinions = []
-      params["user"]["movie_id"].each do |key, value|
-        array_opinions << UserOpinion.create({ like: value, user_id: params["id"], movie_id: key })
+      params["user"]["movie_id"].each do |movie, like|
+        user_opinions = UserOpinion.find_by(user_id: params["id"], movie_id: movie)
+        if user_opinions.nil?
+          UserOpinion.create(
+            like: like,
+            user_id: params["id"],
+            movie_id: movie
+          )
+        else
+          UserOpinion.update(
+            user_opinions,
+            like: like,
+            user_id: params["id"],
+            movie_id: movie
+          )
+        end
       end
     end
     respond_to do |format|
@@ -76,6 +92,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :user_opinion)
+      params.require(:user).permit(:name, :id)
     end
 end

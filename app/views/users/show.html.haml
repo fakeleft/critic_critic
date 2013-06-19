@@ -1,10 +1,14 @@
 %p#notice
   = notice
-
 %p
-  %strong Name:
-  = @user.name
+  %strong
+    Name:
+    = @user.name
+  - @user.user_opinions.each do |opinion|
+    %p
+      %i{ thumbs(opinion.like) }
+      = opinion.movie.title
+  / = @user_opinion.methods
+/ = link_to 'Edit', edit_user_path(@user)
 
-= link_to 'Edit', edit_user_path(@user)
-|
 = link_to 'Back', users_path
