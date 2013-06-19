@@ -6,11 +6,14 @@
     %i.icon-info-sign
     Year:
   = @movie.year
+-
+%img{src: @movie.image_url, class: "show_page_art"}
 %p
   %strong
     %i.icon-book
     Description:
   %p.description_long= @movie.description.try(:truncate, 400, omission: '...')
+
 - if @opinions.count == 0
   %h3 No Reviews
 - else
@@ -33,5 +36,7 @@
             %i{ thumbs(opinion.like) }
           %td= link_to opinion.name, opinion.critic
           %td= link_to opinion.publication, opinion.url
+
+
 %br
 = link_to 'Back', movies_path
