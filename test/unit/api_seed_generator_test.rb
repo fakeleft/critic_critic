@@ -35,7 +35,7 @@ describe 'ApiSeedGenerator' do
     movie.year.must_equal 1991
     movie.rt_id.must_equal 10104
     movie.synopsis.must_equal ""
-    movie.to_seed_string.must_equal "Movie.create!(title: \"Fried Green Tomatoes\", year: 1991, description: \"\", rt_id: 10104)"
+    movie.to_seed_string.must_equal 'Movie.create!(title: "Fried Green Tomatoes", year: 1991, description: "", rt_id: 10104, image_url: "http://content7.flixster.com/movie/10/88/22/10882269_det.jpg")'
   end
 
   it 'should return an array of MovieReviews' do
@@ -52,7 +52,7 @@ describe 'ApiSeedGenerator' do
 
   it 'should return the seed string for a movie' do
     movie = @seed_generator.search_movies("Laurence&Anyways", 1)
-    movie.to_seed_string.must_equal 'Movie.create!(title: "Laurence Anyways", year: 2012, description: "Laurence Anyways clip", rt_id: 771303201)'
+    movie.to_seed_string.must_equal 'Movie.create!(title: "Laurence Anyways", year: 2012, description: "Laurence Anyways clip", rt_id: 771303201, image_url: "http://content8.flixster.com/movie/11/16/42/11164218_det.jpg")'
   end
 
   it 'should return the seed string for a review' do

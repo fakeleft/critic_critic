@@ -20,7 +20,7 @@ popular_movies = ["Iron Man 3",
   "A Good Day To Die Hard",
   "Warm Bodies",
   "Jack The Giant Slayer"]
-# popular_movies = ["A Good Day To Die Hard"]
+ # popular_movies = ["A Good Day To Die Hard"]
 
  test = ApiSeedGenerator.new
  movies = []

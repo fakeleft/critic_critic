@@ -5,14 +5,14 @@ require 'net/http'
 require 'yaml'
 
 # movie structure
-RtMovie = Struct.new(:title, :year, :synopsis, :rt_id) do
+RtMovie = Struct.new(:title, :year, :synopsis, :rt_id, :image_url) do
   def escaped_synopsis
     synopsis.gsub(/[']/, "\\\\\'").
       gsub(/["]/, "\\\\\"")
   end
 
   def to_seed_string
-    "Movie.create!(title: \"#{title}\", year: #{year.to_s}, description: \"#{escaped_synopsis}\", rt_id: #{rt_id})"
+    "Movie.create!(title: \"#{title}\", year: #{year.to_s}, description: \"#{escaped_synopsis}\", rt_id: #{rt_id}, image_url: \"#{image_url}\")"
   end
 end
 
@@ -55,6 +55,7 @@ class ApiSeedGenerator
     escaped_query = URI.escape(query_string)
     uri = URI("#{@base_uri}" + escaped_query)
     response = Net::HTTP.get_response(uri)
+    # puts JSON.parse(response.body)
     JSON.parse(response.body)
   end
 
@@ -106,7 +107,8 @@ class ApiSeedGenerator
       response["movies"][0]["title"],
       response["movies"][0]["year"],
       response["movies"][0]["synopsis"],
-      response["movies"][0]["id"].to_i
+      response["movies"][0]["id"].to_i,
+      response["movies"][0]["posters"]["detailed"]
       )
   end
 
