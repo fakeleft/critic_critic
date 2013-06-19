@@ -56,7 +56,7 @@ describe 'ApiSeedGenerator' do
   end
 
   it 'should return the seed string for a review' do
-    review_string = %Q|c = Critic.create!(name: "Owen Gleiberman", publication: "Entertainment Weekly")
+    review_string = %Q|c = Critic.find_or_create_by(name: "Owen Gleiberman", publication: "Entertainment Weekly")
 m = Movie.find_by_rt_id(10104)
 CriticOpinion.create!(like: "true", url: "http://www.ew.com/ew/article/0,,309135,00.html", critic: c, movie: m)|
 
