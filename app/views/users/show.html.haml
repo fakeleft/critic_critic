@@ -8,6 +8,11 @@
     %p
       %i{ thumbs(opinion.like) }
       = opinion.movie.title
+
+  - @user.top_critics.each do |critic|
+    %p
+      = link_to critic.name, critic
+
   / = @user_opinion.methods
 / = link_to 'Edit', edit_user_path(@user)
 
