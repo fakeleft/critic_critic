@@ -18,13 +18,12 @@
               %button.btn{ "data-toggle" => "button", type: "button" }
                 %i.icon-thumbs-up
                 %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "true"}
-                / = radio_button("user_opinion", ["like", "movie_id"], ["true", movie.id])
               %button.btn{ "data-toggle" => "button", type: "button" }
                 %i.icon-thumbs-down
                 %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
-                / = radio_button("user_opinion", "like", "false")
           %td
-            %img{src: movie.image_url, class: "artwork"}
+            %a{href: movie}
+              = link_to image_tag(movie.image_url, class: "artwork"), movie
           %td
             %span.title
               = link_to movie.title, movie

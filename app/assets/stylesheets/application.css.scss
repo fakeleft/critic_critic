@@ -19,6 +19,9 @@ body{
 .container{
   width: 750px;
 }
+.page_title{
+  padding-left: 20px;
+}
 thead{
   text-align: left;
 }
@@ -30,5 +33,6 @@ float:right;
 
 .btn{
   display:block;
+  margin: 10px 0 10px 0;
 }
 
