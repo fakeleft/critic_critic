@@ -24,9 +24,11 @@ end
 
 RtReview = Struct.new(:rt_id, :like, :review_url, :critic) do
   def to_seed_string
-    seed_string = critic.to_seed_string
-    seed_string << "\nm = Movie.find_by_rt_id(#{rt_id})\n" +
-    "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
+    if (critic.name.length > 0) #Don't try to seed reviews without a valid critic name.
+      seed_string = critic.to_seed_string
+      seed_string << "\nm = Movie.find_by_rt_id(#{rt_id})\n" +
+      "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
+    end
   end
 end
 
@@ -50,7 +52,8 @@ class ApiSeedGenerator
   end
 
   def get_response(query_string)
-    uri = URI("#{@base_uri}" + query_string)
+    escaped_query = URI.escape(query_string)
+    uri = URI("#{@base_uri}" + escaped_query)
     response = Net::HTTP.get_response(uri)
     JSON.parse(response.body)
   end
@@ -60,34 +63,7 @@ class ApiSeedGenerator
   end
 
   def seed_reviews(movies)
-    seed_strings = []
-    movie_ids = get_movie_ids(movies)
-    movie_ids.each do |movie_id|
-      get_movie_reviews(movie_id).each do |review|
-        seed_strings << review.to_seed_string
-      end
-    end
-    seed_strings
-    #
-    # get_movie_ids.each do |movie_id|
-
-    # get_movie_ids.each do |movie_id|
-    #   critic_reviews = get_reviews(movie_id)
-    #   critic_reviews["reviews"].each do |review|
-    #     critic = review["critic"]
-    #     review_url = review["links"]["review"]
-    #     publication = review["publication"]
-    #     like = review["freshness"]
-    #     if like == "fresh"
-    #       like = true
-    #     else
-    #       like = false
-    #     end
-    #     puts "c = Critic.create!(name: \"#{critic}\", publication: \"#{publication}\")"
-    #     puts "m = Movie.find_by_rt_id(#{movie_id})"
-    #     puts "CriticOpinion.create!(like: \"#{like}\", url: \"#{review_url}\", critic: c, movie: m)"
-    #   end
-    # end
+    get_reviews_for_movies(movies).map { |review| review.to_seed_string }
   end
 
   def get_movie(movie_id)
@@ -124,7 +100,7 @@ class ApiSeedGenerator
 
 # the following code is in a state of refactor using Struct classes
 
-  def search_movies(title, page_limit=10)
+  def search_movies(title, page_limit=1)
     response = get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{page_limit}")
     RtMovie.new(
       response["movies"][0]["title"],
@@ -132,6 +108,15 @@ class ApiSeedGenerator
       response["movies"][0]["synopsis"],
       response["movies"][0]["id"].to_i
       )
+  end
+
+  def get_reviews_for_movies(movies)
+    reviews = []
+    movie_ids = get_movie_ids(movies)
+    movie_ids.each do |movie_id|
+      reviews.concat(get_movie_reviews(movie_id))
+    end
+    reviews
   end
 
   def get_movie_reviews(rt_id, page_limit=10)
