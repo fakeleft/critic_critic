@@ -2,7 +2,7 @@
 %html{lang: 'en'}
   %head
     %meta{charset: 'utf8'}
-    %title Movie Critic
+    %title Critic Critic
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
     %meta{name: 'description', content: ''}
     = stylesheet_link_tag "application.css", controller.controller_name
@@ -11,22 +11,22 @@
     .head
       .row-fluid
         .span12
-          .span6
-            %h1.muted Critic Critique
+          .span6.page_title
+            %h1.muted Critic Critic
           .span4.offset2{style: "margin-top:15px;"}
-            %button.btn.pull-right{type: "button"} Sign In
+            / %button.btn.pull-right{type: "button"} Sign In
       .navbar
         .navbar-inner
           .container
             %ul.nav
               %li
-                = link_to "Home", root_path
+                = link_to "Rate Movies", root_path
               %li
                 = link_to "Browse Critics", critics_path
               %li
-                = link_to "Browse Reviews", critic_opinions_path
-              %li
-                = link_to "My Profile", new_user_path
+                = link_to "Browse Movies", movies_path
+              / %li
+              /   = link_to "My Profile", user_path
     / End of navbar
 
   %body

@@ -10,19 +10,6 @@
         - @user.errors.full_messages.each do |msg|
           %li= msg
   %table.movie.table-striped
-    %thead
-      %tr
-        %th.rating
-          Rating
-        %th.title
-          %i.icon-film
-          Title
-        %th.year
-          %i.icon-calendar
-          Year
-        %th.description
-          %i.icon-book
-          Description
     %tbody
       - @movies.each do |movie|
         %tr
@@ -31,15 +18,20 @@
               %button.btn{ "data-toggle" => "button", type: "button" }
                 %i.icon-thumbs-up
                 %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "true"}
-                / = radio_button("user_opinion", ["like", "movie_id"], ["true", movie.id])
               %button.btn{ "data-toggle" => "button", type: "button" }
                 %i.icon-thumbs-down
                 %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
-                / = radio_button("user_opinion", "like", "false")
-          %td= link_to movie.title, movie
-          %td= movie.year
-          %td= movie.description.try(:truncate, 150, omission: '...')
+          %td
+            %a{href: movie}
+              = link_to image_tag(movie.image_url, class: "artwork"), movie
+          %td
+            %span.title
+              = link_to movie.title, movie
+            %i.icon-calendar.year
+              = movie.year
+            %p.description
+              = movie.description.try(:truncate, 500, omission: '...')
   .actions
-    %button{ type: "submit", class: "positive btn btn-large" }
+    %button{ type: "submit", class: "positive btn btn-large submit" }
       Submit
 %br

@@ -1,12 +1,5 @@
-class User < ActiveRecord::Base
-  validates :name, presence: true, uniqueness: true
-
-  has_many :movies, :through => :user_opinions
-  has_many :user_opinions
-
-  def top_critics
-    sql = "select
-  id, sum(score) as score
+select
+  id, sum(score)
 from (
   select critics.id, 1 as score
   from users
@@ -35,15 +28,3 @@ from (
 group by id
 order by sum(score) desc
 limit 5;
-"
-  puts  "$$$"
-    p records_array = ActiveRecord::Base.connection.execute(sql)
-    critics_array = {}
-    records_array.each do |rec|
-      p rec
-     critics_array[Critic.find_by_id(rec["id"])] = rec["score"]
-    end
-    p critics_array
-    critics_array
-  end
-end

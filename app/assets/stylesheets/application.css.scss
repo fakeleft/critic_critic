@@ -16,7 +16,23 @@
 body{
   // font-size: 18px;
 }
+.container{
+  width: 750px;
+}
+.page_title{
+  padding-left: 20px;
+}
 thead{
   text-align: left;
+}
+
+.show_page_art{
+float:right;
+  height: 400px;
+}
+
+.btn{
+  display:block;
+  margin: 10px 0 10px 0;
 }
 

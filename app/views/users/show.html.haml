@@ -9,8 +9,10 @@
       %i{ thumbs(opinion.like) }
       = opinion.movie.title
 
-  - @user.top_critics.each do |critic|
+  - @user.top_critics.each do |critic, score|
     %p
+      = score
+      \-
       = link_to critic.name, critic
 
   / = @user_opinion.methods
