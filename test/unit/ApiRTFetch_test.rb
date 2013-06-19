@@ -18,6 +18,5 @@ describe 'ApiRTFetch' do
 
   # it 'should fetch and parse JSON from RT API' do
   #   @a.get_response("/lists/dvds/upcoming.json?apikey=#{@api_key}")
-  # end
 
 end
