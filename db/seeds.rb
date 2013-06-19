@@ -9,6 +9,7 @@
 CriticOpinion.delete_all
 Movie.delete_all
 Critic.delete_all
+UserOpinion.delete_all
 User.delete_all
 
 User.create!(name: "Dustin")
