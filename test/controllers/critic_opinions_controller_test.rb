@@ -40,11 +40,6 @@ class CriticOpinionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @critic_opinion
-    assert_response :success
-  end
-
   test "should update critic_opinion" do
     patch :update, id: @critic_opinion, critic_opinion: { critic_id: @critic_opinion.critic_id, like: @critic_opinion.like, user_id: @critic_opinion.user_id }
     assert_redirected_to critic_opinion_path(assigns(:critic_opinion))

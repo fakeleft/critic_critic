@@ -18,7 +18,7 @@ end
 
 RtCritic = Struct.new(:name, :publication) do
   def to_seed_string
-    "c = Critic.create!(name: \"#{name}\", publication: \"#{publication}\")"
+    "c = Critic.find_or_create_by(name: \"#{name}\", publication: \"#{publication}\")"
   end
 end
 
