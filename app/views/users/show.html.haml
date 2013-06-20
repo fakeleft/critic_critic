@@ -1,19 +1,16 @@
 %p#notice
   = notice
+%h1 Matched Critics
 %p
   %strong
-    Name:
-    = @user.name
-  - @user.user_opinions.each do |opinion|
     %p
-      %i{ thumbs(opinion.like) }
-      = opinion.movie.title
-
-  - @user.top_critics.each do |critic, score|
+  - @top_critics.each do |critic|
     %p
-      = score
-      \-
-      = link_to critic.name, critic
+      %i{ thumbs(true) }
+      = critic.values[0][:agree]
+      %i{ thumbs(false) }
+      = critic.values[0][:disagree]
+      = link_to critic.keys[0].name, critic.keys[0]
 
   / = @user_opinion.methods
 / = link_to 'Edit', edit_user_path(@user)

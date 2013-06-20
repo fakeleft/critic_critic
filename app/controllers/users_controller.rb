@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-
+     top_critics
   end
 
   # GET /users/new
@@ -40,17 +40,24 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    puts "$$$"
     unless params["user"]["movie_id"].nil?
-      params["user"]["movie_id"].each do |movie, like|
-        user_opinions = UserOpinion.find_or_create_by(user_id: params["id"], movie_id: movie)
-          UserOpinion.update(
-            user_opinions,
-            like: like,
-            movie_id: movie
-            )
-      end
+      session[:user_opinions] = params["user"]["movie_id"]
+      puts "!!!"
+      puts session[:user_opinions]
     end
+    # puts "$$$"
+    # puts params
+    # unless params["user"]["movie_id"].nil?
+    #   session = params
+    #   params["user"]["movie_id"].each do |movie, like|
+    #     user_opinions = UserOpinion.find_or_create_by(user_id: params["id"], movie_id: movie)
+    #       UserOpinion.update(
+    #         user_opinions,
+    #         like: like,
+    #         movie_id: movie
+    #         )
+    #   end
+    # end
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -71,6 +78,31 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def top_critics
+    user_opinions = session[:user_opinions]
+    puts user_opinions
+    score = Hash.new
+    CriticOpinion.all.each do |opinion|
+      movie_id = opinion.movie_id.to_s
+      like = opinion.like.to_s
+      if user_opinions.has_key? movie_id
+        score[opinion.critic_id] ||= {agree: 0, disagree: 0}
+        if user_opinions[movie_id] == like
+          score[opinion.critic_id][:agree] += 1
+        else
+          score[opinion.critic_id][:disagree] += 1
+        end
+      end
+    end
+     rank = rank_critic(score).take(5)
+     @top_critics = rank.map { |critic_id, hash| {Critic.find_by_id(critic_id) => hash} }
+  end
+
+  def rank_critic(score)
+    score.sort_by do |critic, hash|
+      hash[:disagree] - hash[:agree]
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -80,6 +112,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :id)
+      params.require(:user).permit(:name, :id, :movie_id)
     end
 end
