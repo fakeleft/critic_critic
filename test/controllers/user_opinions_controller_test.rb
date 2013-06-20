@@ -5,11 +5,6 @@ class UserOpinionsControllerTest < ActionController::TestCase
     @user_opinion = user_opinions(:one)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
   test "should create user_opinion" do
     assert_difference('UserOpinion.count') do
       post :create, user_opinion: { like: @user_opinion.like, movie_id: @user_opinion.movie_id, user_id: @user_opinion.user_id }

@@ -32,11 +32,6 @@ class MoviesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @movie
-    assert_response :success
-  end
-
   test "should update movie" do
     patch :update, id: @movie, movie: { description: @movie.description, rt_id: @movie.rt_id, title: @movie.title, year: @movie.year }
     assert_redirected_to movie_path(assigns(:movie))
