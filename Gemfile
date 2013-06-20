@@ -14,8 +14,6 @@ group :development, :test do
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
   gem 'turn'
-  gem 'vcr'
-  gem 'webmock'
 end
 
 # Use SCSS for stylesheets
