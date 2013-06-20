@@ -1,0 +1,20 @@
+%h1 Listing critic_opinions
+%table
+  %thead
+    %tr
+      %th Like
+      %th User
+      %th Critic
+      %th
+      %th
+      %th
+  %tbody
+    - @critic_opinions.each do |critic_opinion|
+      %tr
+        %td= critic_opinion.like
+        %td= critic_opinion.user_id
+        %td= critic_opinion.critic_id
+        %td= link_to 'Show', critic_opinion
+
+%br
+= link_to 'New Critic opinion', new_critic_opinion_path
