@@ -39,7 +39,7 @@ class ApiRTFetch
   end
 
   def get_upcoming_dvds
-    upcoming_dvds = get_response("/lists/dvds/upcoming.json?apikey=#{@api_key}")
+    upcoming_dvds = get_response("/lists/dvds/upcoming.json?apikey=#{@api_key}&page_limit=#{@movie_count}")
 
     # creates each movie instance
     upcoming_dvds["movies"].each do |movie|
@@ -48,6 +48,7 @@ class ApiRTFetch
       m.title = movie["title"]
       m.description = movie["synopsis"]
       m.year = movie["year"]
+      m.release_date = movie["release_dates"]["theater"]
       m.save
       # builds array of rt_ids for review fetching
       @movie_ids << movie["id"]
@@ -64,6 +65,7 @@ class ApiRTFetch
       m.title = movie["title"]
       m.description = movie["synopsis"]
       m.year = movie["year"]
+      m.release_date = movie["release_dates"]["theater"].to_s
       m.save
       # builds array of rt_ids for review fetching
       @movie_ids << movie["id"]

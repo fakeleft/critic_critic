@@ -51,6 +51,7 @@ describe 'ApiSeedGenerator' do
   end
 
   it 'should return the seed string for a movie' do
+    skip
     movie = @seed_generator.search_movies("Laurence&Anyways", 1)
     movie.to_seed_string.must_equal 'Movie.create!(title: "Laurence Anyways", year: 2012, description: "Laurence Anyways clip", rt_id: 771303201, image_url: "http://content8.flixster.com/movie/11/16/42/11164218_det.jpg")'
   end
