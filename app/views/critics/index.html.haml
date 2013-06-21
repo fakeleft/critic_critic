@@ -1,5 +1,6 @@
+- title "Browsing Critics"
+
 %p#notice= notice
-%h1 All Critics
 %hr
 %table.movie.table-striped
   %thead
@@ -7,7 +8,6 @@
       %th
         %i.icon-group
         Name
-      / %th Url
       %th
         %i.icon-book
         Publication
@@ -15,10 +15,6 @@
     - @critics.each do |critic|
       %tr
         %td= link_to critic.name, critic
-        / %td= critic.url
         %td= critic.publication
-        / %td= link_to 'Show', critic
-        / %td= link_to 'Edit', edit_critic_path(critic)
-        / %td= link_to 'Destroy', critic, method: :delete, data: { confirm: 'Are you sure?' }
 %br
 = link_to 'New Critic', new_critic_path

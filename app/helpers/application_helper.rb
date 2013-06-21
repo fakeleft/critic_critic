@@ -7,4 +7,11 @@ module ApplicationHelper
       end
       return { class: "#{class_select}" }
   end
+
+  # Generates dynamic page titles and headers
+  def title(page_title)
+    content_for :title do
+      page_title
+    end
+  end
 end

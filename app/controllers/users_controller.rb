@@ -1,24 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
+  before_action :set_user, only: [:show, :update]
 
   # GET /users/1
   # GET /users/1.json
   def show
      top_critics
-  end
-
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
   end
 
   # POST /users
@@ -45,19 +31,6 @@ class UsersController < ApplicationController
       puts "!!!"
       puts session[:user_opinions]
     end
-    # puts "$$$"
-    # puts params
-    # unless params["user"]["movie_id"].nil?
-    #   session = params
-    #   params["user"]["movie_id"].each do |movie, like|
-    #     user_opinions = UserOpinion.find_or_create_by(user_id: params["id"], movie_id: movie)
-    #       UserOpinion.update(
-    #         user_opinions,
-    #         like: like,
-    #         movie_id: movie
-    #         )
-    #   end
-    # end
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: '' }
@@ -69,15 +42,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
-  end
   def top_critics
     user_opinions = session[:user_opinions]
     puts user_opinions
