@@ -11,8 +11,11 @@
       %i{ thumbs(false) }
       = critic.values[0][:disagree]
       = link_to critic.keys[0].name, critic.keys[0]
-
-  / = @user_opinion.methods
-/ = link_to 'Edit', edit_user_path(@user)
-
-= link_to 'Back', users_path
+%p
+  %strong
+    Your Ratings
+  - @user_opinions.each do |movie|
+    %p
+      %i{ thumbs(movie.values[0]) }
+      = link_to movie.keys[0].title, movie.keys[0]
+      = movie.keys[0].title

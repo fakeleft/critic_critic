@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+     @user_opinions = session[:user_opinions]
+     @user_opinions = @user_opinions.map { | movie_id, like | { Movie.find_by_id(movie_id) => like } }
      top_critics
   end
 
@@ -26,10 +28,13 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
     unless params["user"]["movie_id"].nil?
-      session[:user_opinions] = params["user"]["movie_id"]
-      puts "!!!"
-      puts session[:user_opinions]
+      if session.has_key? :user_opinions
+        session[:user_opinions] = session[:user_opinions].merge params["user"]["movie_id"]
+      else
+        session[:user_opinions] = params["user"]["movie_id"]
+      end
     end
     respond_to do |format|
       if @user.update(user_params)
@@ -44,7 +49,6 @@ class UsersController < ApplicationController
 
   def top_critics
     user_opinions = session[:user_opinions]
-    puts user_opinions
     score = Hash.new
     CriticOpinion.all.each do |opinion|
       movie_id = opinion.movie_id.to_s
