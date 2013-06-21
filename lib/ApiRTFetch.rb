@@ -11,14 +11,17 @@
 ######################################################################
 
 class ApiRTFetch
+
+  attr_reader :movie_ids
+
   def initialize
     @base_uri = 'http://api.rottentomatoes.com/api/public/v1.0'
     @api_key = YAML::load(File.open("lib/api_key.yml"))
+    @movie_ids = []
 
     # MUST BE BELOW api-limit of 10-per-sec
     @movie_count = 10
     @review_count = 10
-    @movie_ids = []
   end
 
   def self.clear_db
@@ -75,6 +78,7 @@ class ApiRTFetch
   end
 
   def get_all_reviews
+    puts "getting #{@movie_ids.length} movie reviews"
     @movie_ids.each do |id|
       get_reviews_by_id(id)
     end

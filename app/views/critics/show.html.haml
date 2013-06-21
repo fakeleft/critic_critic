@@ -22,8 +22,16 @@
     %tr
       %td
         %i{ thumbs(opinion.like) }
-      %td= opinion.title
-      %td= link_to opinion.publication, opinion.url
+      %td.span3= link_to opinion.title, opinion.movie
+      %td
+        %a{ href: opinion.url}
+          =opinion.publication
+          %sup
+            %i.icon-external-link{style:'font-size:100%;'}
 %br
 %br
-= link_to 'Back to Critics', critics_path
+
+.btn-group
+  %a.btn.btn-info{href:critics_path}
+    %i.icon-chevron-left{style:'vertical-align:middle;'}
+    %span{style:'vertical-align:middle;'}Back to Critics

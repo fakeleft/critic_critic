@@ -7,7 +7,7 @@
       %th.title
         %i.icon-film
         Title
-      %th.year
+      %th.year.span2.text-center
         %i.icon-calendar
         Year
       %th.description
@@ -17,5 +17,5 @@
     - @movies.each do |movie|
       %tr
         %td= link_to movie.title, movie
-        %td= movie.year
+        %td.text-center= movie.year
         %td= movie.description.try(:truncate, 150, omission: '...')
