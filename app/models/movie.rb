@@ -7,9 +7,4 @@ class Movie < ActiveRecord::Base
 
   has_many :user_opinions
   has_many :users, :through => :user_opinions
-
-  def artwork( size)
-    self.
-    Movie.image_url
-  end
 end
