@@ -49,6 +49,7 @@ class ApiRTFetch
       m.description = movie["synopsis"]
       m.year = movie["year"]
       m.release_date = movie["release_dates"]["theater"]
+      m.image_url = movie["posters"]["detailed"]
       m.save
       # builds array of rt_ids for review fetching
       @movie_ids << movie["id"]
@@ -66,6 +67,7 @@ class ApiRTFetch
       m.description = movie["synopsis"]
       m.year = movie["year"]
       m.release_date = movie["release_dates"]["theater"].to_s
+      m.image_url = movie["posters"]["detailed"]
       m.save
       # builds array of rt_ids for review fetching
       @movie_ids << movie["id"]
