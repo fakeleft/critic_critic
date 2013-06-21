@@ -11,8 +11,3 @@
       %i{ thumbs(false) }
       = critic.values[0][:disagree]
       = link_to critic.keys[0].name, critic.keys[0]
-
-  / = @user_opinion.methods
-/ = link_to 'Edit', edit_user_path(@user)
-
-= link_to 'Back', users_path
