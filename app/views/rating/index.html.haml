@@ -15,8 +15,7 @@
       - @movies.each do |movie|
         %tr
           %td.user_rate
-            .btn-group{ "data-toggle" => "buttons-radio" }
-              / [FIXME] -- bootstrap radio buttons auto-rounding horizontally, standardize that
+            .btn-group.btn-group-vertical{ "data-toggle" => "buttons-radio" }
               %button.btn{ "data-toggle" => "button", type: "button" }
                 %i.icon-thumbs-up
                 %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "true"}

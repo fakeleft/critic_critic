@@ -2,6 +2,7 @@
 
 %p#notice= notice
 %hr
+
 %p
   %strong
     %i.icon-info-sign
@@ -40,4 +41,8 @@
 
 
 %br
-= link_to 'Back to Movies', movies_path
+
+.btn-group
+  %a.btn.btn-info{href:movies_path}
+    %i.icon-chevron-left{style:'vertical-align:middle;'}
+    %span{style:'vertical-align:middle;'}Back to Movies
