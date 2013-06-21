@@ -36,3 +36,11 @@ float:right;
   margin: 10px 0 10px 0;
 }
 
+a.nav-title {
+  text-decoration: none;
+
+  &:hover {
+  color: #999999;
+  }
+}
+

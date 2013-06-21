@@ -4,13 +4,12 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all
+    @movies = Movie.search(params[:search])
   end
   # GET /movies/1
   # GET /movies/1.json
   def show
     @opinions = CriticOpinion.where({ :movie_id => @movie.id })
-
   end
 
   def create
