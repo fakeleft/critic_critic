@@ -8,35 +8,31 @@
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
     %meta{name: 'description', content: ''}
     = stylesheet_link_tag "application.css", controller.controller_name
-
-    / Navbar div
-    .head
-      .row-fluid
-        .span12
-          .span6.page_title
-            %h1.muted= link_to "Critic Critic", root_path, class: "nav-title muted"
-          .span4.offset2{style: "margin-top:15px;"}
-      .navbar
-        .navbar-inner
-          .container
-            %ul.nav
-              %li
-                = link_to "Rate Movies", root_path
-              %li
-                = link_to "Browse Critics", critics_path
-              %li
-                = link_to "Browse Movies", movies_path
-              / %li
-              /   = link_to "My Profile", user_path
-              %li
-                = link_to "About", about_path
-
-            %i.icon-search.pull-right
-              = form_tag movies_path, method: 'get' do
+  .navbar
+    .navbar-inner
+      .container
+        %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => root_path} Critic Critic
+        .nav-collapse.collapse
+          %ul.nav
+            %li
+              = link_to "Rate Movies", root_path
+            %li
+              = link_to "Browse Critics", critics_path
+            %li
+              = link_to "Browse Movies", movies_path
+            %li
+              = link_to "About", about_path
+            %li
+              = form_tag movies_path, method: 'get', class: "navbar-form pull-right" do
+                %i.icon-search
                 = text_field_tag :search, params[:search]
-                = submit_tag "Search", name: nil
-                / = m.search_field :movies, :title
-                / = m.submit_tag "Search Movies"
+                = submit_tag "Search", name: nil, class: "btn span2"
+              / = m.search_field :movies, :title
+              / = m.submit_tag "Search Movies"
 
     / End of navbar
 

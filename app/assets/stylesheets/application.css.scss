@@ -11,14 +11,15 @@
  *= require_self
  */
 @import "bootstrap.css.scss";
+@import "bootstrap-responsive";
 @import "font-awesome";
 @import "movies";
 body{
   // font-size: 18px;
 }
-.container{
-  width: 750px;
-}
+// .container{
+//   width: 750px;
+// }
 .page_title{
   padding-left: 20px;
 }

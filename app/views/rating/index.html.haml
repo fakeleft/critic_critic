@@ -10,28 +10,26 @@
       %ul
         - @user.errors.full_messages.each do |msg|
           %li= msg
-  %table.movie.table-striped
-    %tbody
-      - @movies.each do |movie|
-        %tr
-          %td.user_rate
-            .btn-group.btn-group-vertical{ "data-toggle" => "buttons-radio" }
-              %button.btn{ "data-toggle" => "button", type: "button" }
-                %i.icon-thumbs-up
-                %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "true"}
-              %button.btn{ "data-toggle" => "button", type: "button" }
-                %i.icon-thumbs-down
-                %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
-          %td
-            %a{href: movie}
-              = link_to image_tag(movie.image_url, class: "artwork"), movie
-          %td
-            %span.title
-              = link_to movie.title, movie
-            %i.icon-calendar.year
-              = movie.year
-            %p.description
-              = movie.description.try(:truncate, 500, omission: '...')
+  - @movies.each do |movie|
+    .row
+      .span1.offset2
+        .btn-group.btn-group-vertical{ "data-toggle" => "buttons-radio" }
+          %button.btn{ "data-toggle" => "button", type: "button" }
+            %i.icon-thumbs-up
+            %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "true"}
+          %button.btn{ "data-toggle" => "button", type: "button" }
+            %i.icon-thumbs-down
+            %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
+      .span2
+        %a{href: movie}
+          = link_to image_tag(movie.image_url, class: "artwork"), movie
+      .span6
+        %span.title
+          = link_to movie.title, movie
+        %i.icon-calendar.year
+          = movie.year
+        %p.description
+          = movie.description.try(:truncate, 500, omission: '...')
   .actions
     %button{ type: "submit", class: "positive btn btn-large submit" }
       Submit
