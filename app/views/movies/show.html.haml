@@ -8,7 +8,16 @@
     %i.icon-info-sign
     Release Date:
   = @movie.release_date
--
+= form_for(@user) do |f|
+  .btn-group.btn-group-vertical{ "data-toggle" => "buttons-radio" }
+    %button.btn{ "data-toggle" => "button", type: "button" }
+      %i.icon-thumbs-up
+      %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "true"}
+    %button.btn{ "data-toggle" => "button", type: "button" }
+      %i.icon-thumbs-down
+      %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "false"}
+    %button{ type: "submit", class: "positive btn btn-large submit" }
+      Submit
 %img{src: @movie.image_url , class: "show_page_art"}
 %p
   %strong

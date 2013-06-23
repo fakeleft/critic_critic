@@ -14,6 +14,7 @@ class MoviesController < ApplicationController
   # GET /movies/1.json
   def show
     @opinions = CriticOpinion.where({ :movie_id => @movie.id })
+    @user = User.first
   end
 
   def create
