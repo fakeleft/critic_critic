@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.search(params[:search])
+    @movies = Movie.find(:all, :conditions => ["title ~* '.*#{params['search']}*.'"])
   end
   # GET /movies/1
   # GET /movies/1.json
