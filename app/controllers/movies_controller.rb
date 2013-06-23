@@ -4,7 +4,11 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.find(:all, :conditions => ["title ~* '.*#{params['search']}*.'"])
+    unless params['search'].nil?
+      @movies = Movie.find(:all, :conditions => ["title ~* '.*#{params['search']}*.'"])
+    else
+      @movies = Movie.all
+    end
   end
   # GET /movies/1
   # GET /movies/1.json
