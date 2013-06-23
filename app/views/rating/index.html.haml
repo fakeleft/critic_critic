@@ -14,10 +14,10 @@
     .row
       .span4.offset2
         .btn-group.btn-group-vertical{ "data-toggle" => "buttons-radio" }
-          %button.btn{ "data-toggle" => "button", type: "button" }
+          %button.btn.btn-vertical{ "data-toggle" => "button", type: "button" }
             %i.icon-thumbs-up
             %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "true"}
-          %button.btn{ "data-toggle" => "button", type: "button" }
+          %button.btn.btn-vertical{ "data-toggle" => "button", type: "button" }
             %i.icon-thumbs-down
             %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
         = link_to image_tag(movie.image_url, class: "artwork"), movie
@@ -30,5 +30,5 @@
           = movie.description.try(:truncate, 500, omission: '...')
   .actions
     %button{ type: "submit", class: "positive btn btn-large submit" }
-      Submit
+      Match Critics
 %br
