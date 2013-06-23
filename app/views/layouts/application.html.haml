@@ -26,13 +26,13 @@
               = link_to "Browse Movies", movies_path
             %li
               = link_to "About", about_path
-            %li
-              = form_tag movies_path, method: 'get', class: "navbar-form pull-right" do
-                %i.icon-search
-                = text_field_tag :search, params[:search]
-                = submit_tag "Search", name: nil, class: "btn span2"
-              / = m.search_field :movies, :title
-              / = m.submit_tag "Search Movies"
+          = form_tag movies_path, method: 'get', class: "navbar-form pull-right input-container" do
+            .icon-ph
+              %i.icon-search
+            = text_field_tag :search, params[:search], class: "custom-text"
+            = submit_tag "Search", name: nil, class: "btn btn-small"
+            / = m.search_field :movies, :title
+            / = m.submit_tag "Search Movies"
 
     / End of navbar
 

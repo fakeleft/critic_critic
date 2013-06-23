@@ -12,7 +12,7 @@
           %li= msg
   - @movies.each do |movie|
     .row
-      .span1.offset2
+      .span4.offset2
         .btn-group.btn-group-vertical{ "data-toggle" => "buttons-radio" }
           %button.btn{ "data-toggle" => "button", type: "button" }
             %i.icon-thumbs-up
@@ -20,9 +20,7 @@
           %button.btn{ "data-toggle" => "button", type: "button" }
             %i.icon-thumbs-down
             %input{:name => "user[movie_id][#{movie.id}]", :type => "radio", :value => "false"}
-      .span2
-        %a{href: movie}
-          = link_to image_tag(movie.image_url, class: "artwork"), movie
+        = link_to image_tag(movie.image_url, class: "artwork"), movie
       .span6
         %span.title
           = link_to movie.title, movie
