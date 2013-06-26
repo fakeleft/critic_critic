@@ -2,56 +2,55 @@
 
 %p#notice= notice
 %hr
+.row
+  .span6
+    %p
+    %strong
+      %i.icon-book
+      Description:
+    %p= @movie.description.try(:truncate, 400, omission: '...')
+  .span3.offset1
+    - if @opinions.count == 0
+      %h3 No Reviews
+    - else
+      %h3 Listing All Critics
+      %table.table-striped
+        %thead
+          %tr
+            %th
+              Rating
+            %th
+              %i.icon-group
+              Name
+            %th
+              %i.icon-book
+              Review
+        %tbody
+          - @opinions.each do |opinion|
+            %tr
+              %td
+                %i{ thumbs(opinion.like) }
+              %td= link_to opinion.name, opinion.critic
+              %td= link_to opinion.publication, opinion.url
+  .span4
+    %p
+      %strong
+        %i.icon-info-sign
+        Release Date:
+      = @movie.release_date
+    = form_for(@user) do |f|
+      .btn-group{ "data-toggle" => "buttons-radio" }
+        %button.btn{ "data-toggle" => "button", type: "button" }
+          %i.icon-thumbs-up
+          %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "true"}
+        %button.btn{ "data-toggle" => "button", type: "button" }
+          %i.icon-thumbs-down
+          %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "false"}
+        %button{ type: "submit", class: "positive btn submit" }
+          Rate It!
 
-%p
-  %strong
-    %i.icon-info-sign
-    Release Date:
-  = @movie.release_date
-= form_for(@user) do |f|
-  .btn-group{ "data-toggle" => "buttons-radio" }
-    %button.btn{ "data-toggle" => "button", type: "button" }
-      %i.icon-thumbs-up
-      %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "true"}
-    %button.btn{ "data-toggle" => "button", type: "button" }
-      %i.icon-thumbs-down
-      %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "false"}
-    %button{ type: "submit", class: "positive btn submit" }
-      Rate It!
-%img{src: @movie.image_url , class: "show_page_art"}
-%p
-  %strong
-    %i.icon-book
-    Description:
-  %p.description_long= @movie.description.try(:truncate, 400, omission: '...')
+    .btn-group
+      %a.btn.btn-info{href:movies_path}
+        %i.icon-chevron-left{style:'vertical-align:middle;'}
+        %span{style:'vertical-align:middle;'}Back to Movies
 
-- if @opinions.count == 0
-  %h3 No Reviews
-- else
-  %h3 Listing All Critics
-  %table.table-striped.reviews
-    %thead
-      %tr
-        %th
-          Rating
-        %th
-          %i.icon-group
-          Name
-        %th
-          %i.icon-book
-          Review
-    %tbody
-      - @opinions.each do |opinion|
-        %tr
-          %td
-            %i{ thumbs(opinion.like) }
-          %td= link_to opinion.name, opinion.critic
-          %td= link_to opinion.publication, opinion.url
-
-
-%br
-
-.btn-group
-  %a.btn.btn-info{href:movies_path}
-    %i.icon-chevron-left{style:'vertical-align:middle;'}
-    %span{style:'vertical-align:middle;'}Back to Movies
