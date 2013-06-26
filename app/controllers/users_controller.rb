@@ -2,14 +2,17 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update]
 
   def index
-    show
+    @user = User.first
+    redirect_to @user
   end
+
   # GET /users/1
   # GET /users/1.json
   def show
-     @user_opinions = session[:user_opinions]
-     @user_opinions = @user_opinions.map { | movie_id, like | { Movie.find_by_id(movie_id) => like } }
-     top_critics
+    render_404 unless @user_opinions.nil?
+    @user_opinions = session[:user_opinions] || not_found
+    @user_opinions = @user_opinions.map { | movie_id, like | { Movie.find_by_id(movie_id) => like } }
+    top_critics
   end
 
   # POST /users
@@ -76,7 +79,7 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_user
       @user = User.find(params[:id])
     end

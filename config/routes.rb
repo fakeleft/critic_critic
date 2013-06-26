@@ -1,13 +1,9 @@
 CriticCritic::Application.routes.draw do
-  resources :critic_opinions
-
-  resources :user_opinions
-
   resources :critics
 
-  resources :users
-
   resources :movies
+
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -37,7 +33,7 @@ CriticCritic::Application.routes.draw do
   #     end
   #   end
 
-  # Example resource route with sub-resources:
+  # Example resour`ce route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
   #     resource :seller
