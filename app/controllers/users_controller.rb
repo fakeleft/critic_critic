@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def show
      @user_opinions = session[:user_opinions]
      @user_opinions = @user_opinions.map { | movie_id, like | { Movie.find_by_id(movie_id) => like } }
+     @user_opinions.reject! {| key, value | key.nil? }
      top_critics
   end
 
