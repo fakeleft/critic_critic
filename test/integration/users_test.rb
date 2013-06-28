@@ -11,7 +11,6 @@ class UsersViewTest < ActionDispatch::IntegrationTest
       end
 
       it "should have h2 'Matched Critics'" do
-        skip
         visit '/users'
         page.must_have_selector('h2', text:'Matched Critics')
       end

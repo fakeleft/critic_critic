@@ -9,10 +9,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-     @user_opinions = session[:user_opinions]
-     @user_opinions = @user_opinions.map { | movie_id, like | { Movie.find_by_id(movie_id) => like } }
-     @user_opinions.reject! {| key, value | key.nil? }
-     top_critics
+    @user_opinions = session[:user_opinions]
+    unless @user_opinions.nil?
+      @user_opinions = @user_opinions.map { | movie_id, like | { Movie.find_by_id(movie_id) => like } }
+      @user_opinions.reject! {| key, value | key.nil? }
+      top_critics
+    end
   end
 
   # POST /users
