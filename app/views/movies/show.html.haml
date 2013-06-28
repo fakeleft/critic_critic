@@ -10,7 +10,9 @@
     %strong
       %i.icon-book
       Description:
-    %p= @movie.description.try(:truncate, 400, omission: '...')
+    %br
+    %br
+    %p= @movie.description.try(:truncate, 500, omission: '...')
 
     %div.show-movie-form
       %p
@@ -22,10 +24,10 @@
         .btn-group{ "data-toggle" => "buttons-radio" }
           %button.btn{ "data-toggle" => "button", type: "button" }
             %i.icon-thumbs-up
-            %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "true"}
+            %input{:name => "user[movie_id][#{@movie.id}]", :required => "required", :type => "radio", :value => "true"}
           %button.btn{ "data-toggle" => "button", type: "button" }
             %i.icon-thumbs-down
-            %input{:name => "user[movie_id][#{@movie.id}]", :type => "radio", :value => "false"}
+            %input{:name => "user[movie_id][#{@movie.id}]", :required => "required", :type => "radio", :value => "false"}
           %button{ type: "submit", class: "positive btn submit" }
             Rate It!
 
