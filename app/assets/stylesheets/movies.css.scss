@@ -5,37 +5,44 @@
   font-size: 40px;
 }
 
-// .description {
-//   width:450px;
-
-//   margin: 25px;
-//   margin-left:50px;
-// }
-// p.description_long {
-//   width:600px;
-// }
 .artwork{
-  padding:10px;
+  padding: 10px;
   max-width: 65%;
 }
+
+.show_poster {
+  padding: 2%;
+  float:left;
+  max-width: 50%;
+}
+
+.show-movie-form {
+  clear: both;
+  margin-left: 2%;
+}
+
 span.title{
   font-size: 18px;
   margin-left: 25px;
-
 }
+
 i.year{
   float:right;
   padding-right:20px;
 }
+
 .submit{
   margin:20px;
 }
+
 table.critics{
   width: 400px;
 }
+
 .reviews td {
   padding: 10px;
 }
+
 i{
   font-size: 20px
 }
@@ -55,15 +62,18 @@ i{
 .user_rate i {
   font-size:  35px;
 }
+
 .unselected{
   // color: black;
 }
+
 .selected{
 color: black;
   &:hover{
     color: black;
   }
 }
+
 div.btn-group[data-toggle=buttons-radio] input[type=radio] {
   display:    block;
   position:   absolute;
