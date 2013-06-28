@@ -28,10 +28,8 @@
           = form_tag movies_path, method: 'get', class: "navbar-form pull-right input-container" do
             .icon-ph
               %i.icon-search
-            = text_field_tag :search, params[:search], required: "required", placeholder: "Search movie by title...", class: "custom-text"
-            = submit_tag "Search", name: nil, class: "btn btn-small"
-            / = m.search_field :movies, :title
-            / = m.submit_tag "Search Movies"
+            = text_field_tag :search, params[:search], required: "required", placeholder: "Search movie by title..."
+            = submit_tag "Search", class: "btn btn-small"
 
     / End of navbar
 

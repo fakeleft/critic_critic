@@ -21,13 +21,14 @@ namespace :api do
     puts "DONE"
   end
 
-  # desc "Fetch given movie by query string"
-  # task get_movie_by_name:, [:movie_title] => :environment do |t, args|
-  #   movie_name = args[:movie_title]
-  #   puts "Searching for '#{movie_name}'..."
-  #   a.get_movie_by_name(movie_name)
-  #   puts "DONE"
-  # end
+  desc "Fetch movie by name with title='query'"
+  task get_movie_by_name
+    puts ENV["title"]
+    movie_name = ENV["movie_title"]
+    puts "Searching for '#{movie_name}'..."
+    a.get_movie_by_name(movie_name)
+    puts "DONE"
+  end
 
   desc "Fetch RT API data and create Critic and CriticOpinion instances from fetched movie IDs"
   task get_all_reviews: :environment do

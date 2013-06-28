@@ -82,19 +82,19 @@ class ApiRTFetch
   def get_movie_by_name(title)
     response = get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{@movie_count}")
 
-    movie_query = response["movie"][0]
+    movie_query = response["movies"][0]
 
     m = Movie.new
     m.title = movie_query["title"]
     m.year = movie_query["year"]
-    m.descriptoin = movie_query["synopsis"]
+    m.description = movie_query["synopsis"]
     m.rt_id = movie_query["id"].to_i
     m.release_date = movie_query["release_dates"]["theater"]
     m.image_url = movie_query["posters"]["detailed"]
     m.save
 
     # builds array of rt_ids for review fetching
-    @movie_ids << movie["id"]
+    @movie_ids << movie_query["id"]
   end
 
   def get_all_reviews
