@@ -3,15 +3,18 @@ require 'test_helper'
 class UsersViewTest < ActionDispatch::IntegrationTest
 
   describe 'Users pages' do
-    describe 'Users home' do
 
-      # it "should have the title 'Movie Critic | All Users'" do
-      #   visit '/users'
-      #   page.must_have_title('Movie Critic | All Users')
-      # end
+      it "should have the title 'Matched Critics | Critic Critic'" do
+        skip
+        visit '/users'
+        page.must_have_title('Matched Critics | Critic Critic')
+      end
 
-      # it "should have h1 'All Users'"
-
-    end
+      it "should have h2 'Matched Critics'" do
+        skip
+        visit '/users'
+        page.must_have_selector('h2', text:'Matched Critics')
+      end
   end
+
 end

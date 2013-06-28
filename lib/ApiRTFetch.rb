@@ -2,12 +2,15 @@
 # belongs to critic_critic
 #
 # usage:
-#  * 2 God-Functions to be called in order: "get_upcoming_movies" and "get_all_reviews"
+#  * 3 God-Functions to be called in order: "get_upcoming_movies" or
+#    "get_upcoming_dvds" then "get_all_reviews"
 #
 #  * get_response - takes query string, fetches w/ api_key, returns parsed hash
 #  * get_upcoming_movies - creates movie objs and builds rt_ids array
+#  * get_upcoming_dvds   - creates movie objs and builds rt_ids array
 #  * get_all_reviews - takes array of rt_ids & passes each to get_reviews_by_id
-#  * get_reviews_by_id - takes an rt_id to fetch reviews, create CriticOpinion objs and Critic objs
+#  * get_reviews_by_id - takes 1 rt_id to fetch reviews, then
+#    creates CriticOpinion objs and Critic objs.
 ######################################################################
 
 class ApiRTFetch
@@ -19,7 +22,6 @@ class ApiRTFetch
     @api_key = YAML::load(File.open("lib/api_key.yml"))
     @movie_ids = []
 
-    # MUST BE BELOW api-limit of 10-per-sec
     @movie_count = 10
     @review_count = 10
   end
@@ -75,6 +77,24 @@ class ApiRTFetch
       # builds array of rt_ids for review fetching
       @movie_ids << movie["id"]
     end
+  end
+
+  def get_movie_by_name(title)
+    response = get_response("/movies.json?apikey=#{@api_key}&q=#{title}&page_limit=#{@movie_count}")
+
+    movie_query = response["movie"][0]
+
+    m = Movie.new
+    m.title = movie_query["title"]
+    m.year = movie_query["year"]
+    m.descriptoin = movie_query["synopsis"]
+    m.rt_id = movie_query["id"].to_i
+    m.release_date = movie_query["release_dates"]["theater"]
+    m.image_url = movie_query["posters"]["detailed"]
+    m.save
+
+    # builds array of rt_ids for review fetching
+    @movie_ids << movie["id"]
   end
 
   def get_all_reviews
