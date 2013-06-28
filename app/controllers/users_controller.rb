@@ -2,8 +2,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update]
 
   def index
-    show
+    @user = User.first
+    redirect_to @user
   end
+
   # GET /users/1
   # GET /users/1.json
   def show
