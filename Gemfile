@@ -11,6 +11,7 @@ gem "font-awesome-rails", github: 'bokmann/font-awesome-rails'
 gem 'pg'
 
 group :development, :test do
+  gem 'coffee-rails-source-maps'
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
   gem 'turn'
