@@ -22,7 +22,7 @@ namespace :api do
   end
 
   desc "Fetch movie by name with title='query'"
-  task get_movie_by_name
+  task get_movie_by_name: :environment do
     puts ENV["title"]
     movie_name = ENV["movie_title"]
     puts "Searching for '#{movie_name}'..."
