@@ -23,8 +23,7 @@ namespace :api do
 
   desc "Fetch movie by name with title='query'"
   task get_movie_by_name: :environment do
-    puts ENV["title"]
-    movie_name = ENV["movie_title"]
+    movie_name = ENV["title"]
     puts "Searching for '#{movie_name}'..."
     a.get_movie_by_name(movie_name)
     puts "DONE"

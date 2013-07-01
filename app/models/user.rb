@@ -4,46 +4,28 @@ class User < ActiveRecord::Base
   has_many :movies, :through => :user_opinions
   has_many :user_opinions
 
-  def top_critics
-    sql = "select
-  id, sum(score) as score
-from (
-  select critics.id, 1 as score
-  from users
-  inner join user_opinions
-    on users.id = user_opinions.user_id
-  inner join movies
-    on user_opinions.movie_id = movies.id
-  inner join critic_opinions
-    on critic_opinions.movie_id = movies.id
-    and user_opinions.like = critic_opinions.like
-  inner join critics
-    on critic_opinions.critic_id = critics.id
-  union all
-  select critics.id, -1 as score
-  from users
-  inner join user_opinions
-    on users.id = user_opinions.user_id
-  inner join movies
-    on user_opinions.movie_id = movies.id
-  inner join critic_opinions
-    on critic_opinions.movie_id = movies.id
-    and user_opinions.like != critic_opinions.like
-  inner join critics
-  on critic_opinions.critic_id = critics.id
-  ) as sub
-group by id
-order by sum(score) desc
-limit 5;
-"
-  puts  "$$$"
-    p records_array = ActiveRecord::Base.connection.execute(sql)
-    critics_array = {}
-    records_array.each do |rec|
-      p rec
-     critics_array[Critic.find_by_id(rec["id"])] = rec["score"]
+  def top_critics(user_opinions)
+    score = Hash.new
+    CriticOpinion.all.each do |opinion|
+      movie_id = opinion.movie_id.to_s
+      like = opinion.like.to_s
+      if user_opinions.has_key? movie_id
+        score[opinion.critic_id] ||= {agree: 0, disagree: 0}
+        if user_opinions[movie_id] == like
+          score[opinion.critic_id][:agree] += 1
+        else
+          score[opinion.critic_id][:disagree] += 1
+        end
+      end
     end
-    p critics_array
-    critics_array
+     rank = rank_critic(score).take(5)
+     @top_critics = rank.map { |critic_id, hash| {Critic.find_by_id(critic_id) => hash} }
   end
+
+  def rank_critic(score)
+    score.sort_by do |critic, hash|
+      hash[:disagree] - hash[:agree]
+    end
+ end
+
 end
