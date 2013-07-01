@@ -1,11 +1,12 @@
 // Place all the styles related to the movies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.rating i{
+
+.rating i {
   font-size: 40px;
 }
 
-.artwork{
+.artwork {
   padding: 10px;
   max-width: 65%;
 }
@@ -21,21 +22,21 @@
   margin-left: 2%;
 }
 
-span.title{
+span.title {
   font-size: 18px;
   margin-left: 25px;
 }
 
-i.year{
+i.year {
   float:right;
   padding-right:20px;
 }
 
-.submit{
+.submit {
   margin:20px;
 }
 
-table.critics{
+table.critics {
   width: 400px;
 }
 
@@ -43,11 +44,9 @@ table.critics{
   padding: 10px;
 }
 
-i{
-  font-size: 20px
+i {
+  font-size: 20px;
 }
-
-
 
 .down {
   margin: 10px 10px 10px 5px;
@@ -57,19 +56,17 @@ i{
   margin: 10px 0px 10px 10px;
 }
 
-
-
 .user_rate i {
   font-size:  35px;
 }
 
-.unselected{
+.unselected {
   // color: black;
 }
 
-.selected{
+.selected {
 color: black;
-  &:hover{
+  &:hover {
     color: black;
   }
 }
@@ -83,4 +80,3 @@ div.btn-group[data-toggle=buttons-radio] input[type=radio] {
   height:     100%;
   opacity:    0;
 }
-
