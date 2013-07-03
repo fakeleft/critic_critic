@@ -22,8 +22,8 @@ class ApiRTFetch
     @api_key = YAML::load(File.open("lib/api_key.yml"))
     @movie_ids = []
 
-    @movie_count = 10
-    @review_count = 10
+    @movie_count = 40
+    @review_count = 40
   end
 
   def self.clear_db
@@ -56,8 +56,6 @@ class ApiRTFetch
       m.release_date = movie["release_dates"]["theater"]
       m.image_url = movie["posters"]["detailed"]
       m.save
-      # builds array of rt_ids for review fetching
-      @movie_ids << movie["id"]
     end
   end
 
@@ -74,8 +72,6 @@ class ApiRTFetch
       m.release_date = movie["release_dates"]["theater"].to_s
       m.image_url = movie["posters"]["detailed"]
       m.save
-      # builds array of rt_ids for review fetching
-      @movie_ids << movie["id"]
     end
   end
 
@@ -92,19 +88,18 @@ class ApiRTFetch
     m.release_date = movie_query["release_dates"]["theater"]
     m.image_url = movie_query["posters"]["detailed"]
     m.save
-
-    # builds array of rt_ids for review fetching
-    @movie_ids << movie_query["id"]
   end
 
   def get_all_reviews
-    puts "getting #{@movie_ids.length} movie reviews"
-    @movie_ids.each do |id|
-      get_reviews_by_id(id)
+    puts "getting reviews for #{Movie.all.length} movies"
+
+    Movie.all.each do |db_movie|
+      get_reviews_by_id(db_movie.rt_id)
     end
   end
 
   def get_reviews_by_id(movie_rt_id)
+
     # grabs each review-set by rt_id
     reviews_by_id = get_response("/movies/#{movie_rt_id}/reviews.json?apikey=#{@api_key}&page_limit=#{@review_count}")
 
