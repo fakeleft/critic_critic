@@ -1,8 +1,8 @@
 require_relative '../ApiRTFetch'
 
-a = ApiRTFetch.new
-
 namespace :api do
+
+  a = ApiRTFetch.new
 
   desc "Run all API grabs"
   task all: [:get_upcoming_movies, :get_upcoming_dvds, :get_all_reviews]
@@ -31,14 +31,23 @@ namespace :api do
 
   desc "Fetch RT API data and create Critic and CriticOpinion instances from fetched movie IDs"
   task get_all_reviews: :environment do
-    puts "Grabbing reviews for fetched movies..."
+    puts "Getting reviews for #{Movie.all.length} movies..."
+    puts "====>>>>====>>>>====>>>>====>>>>====>>>>"
     a.get_all_reviews
+    puts "DONE"
+  end
+
+  desc "Fetch popular movies from popular_movies.yml lib seed file"
+  task get_popular_movies: :environment do
+    puts "Grabbing popular movies from 'popular_movies.yml'..."
+    a.get_popular_movies
     puts "DONE"
   end
 
   desc "clears DB of all instances of movies, critics, and critic_opinions"
   task clear_db: :environment do
     ApiRTFetch.clear_db
+    puts "DONE"
   end
 
 end
